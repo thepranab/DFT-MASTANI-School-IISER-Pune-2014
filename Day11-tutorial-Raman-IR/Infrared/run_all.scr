@@ -1,0 +1,18 @@
+#!/bin/bash
+
+export LANG=C
+
+RUNCMD='mpirun -np 4 /usr/local/apps/espresso-5.1/bin/pw.x -npools 2'
+${RUNCMD} -in SiO2-pw.in > SiO2-pw.out
+RUNCMD='mpirun -np 4 /usr/local/apps/espresso-5.1/bin/ph.x -npools 2'
+${RUNCMD} -in SiO2-ph.in > SiO2-ph.out
+RUNCMD='/usr/local/apps/espresso-5.1/bin/dynmat.x'
+${RUNCMD} -in SiO2-dynmat.in > SiO2-dynmat.out
+
+RUNCMD='mpirun -np 4 /usr/local/apps/espresso-5.1/bin/pw.x -npools 2'
+${RUNCMD} -in CO2-pw.in > CO2-pw.out
+RUNCMD='mpirun -np 4 /usr/local/apps/espresso-5.1/bin/ph.x -npools 2'
+${RUNCMD} -in CO2-ph.in > CO2-ph.out
+RUNCMD='/usr/local/apps/espresso-5.1/bin/dynmat.x'
+${RUNCMD} -in CO2-dynmat.in > CO2-dynmat.out
+

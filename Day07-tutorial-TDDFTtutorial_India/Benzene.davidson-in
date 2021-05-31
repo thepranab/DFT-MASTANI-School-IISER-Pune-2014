@@ -1,0 +1,17 @@
+&lr_input 
+prefix="benzene",
+outdir='./out',
+wfcdir='./out_david',
+/
+&lr_dav 
+num_eign=40,
+num_init=60,
+num_basis_max=400,
+reference=0.d0,
+residue_conv_thr=1.d-4,
+start=0.d0,
+finish=3.5d0,
+step=0.001d0,
+broadening=0.015d0,
+/ 
+

@@ -1,0 +1,96 @@
+# le righe (e le colonne pari) descrivono gli stati s
+
+rm -f dn*_*da*
+rm -f file_sc8
+
+cp ../results_Fe_sc8_ucalc_pbe/fe.pert_*out ./
+
+for con in -0.1 -0.05 0.0 0.05 0.1 
+do
+
+sum1=`grep 'Tr' fe.pert_$con.out |tail -16 | awk '{if(NR==1) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn_1_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |tail -16 | awk '{if(NR==2) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn_2_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |tail -16 | awk '{if(NR==3) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn_3_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |tail -16 | awk '{if(NR==4) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn_4_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |tail -16 | awk '{if(NR==5) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn_5_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |tail -16 | awk '{if(NR==6) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn_6_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |tail -16 | awk '{if(NR==7) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn_7_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |tail -16 | awk '{if(NR==8) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn_8_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |tail -16 | awk '{if(NR==8) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn_9_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |tail -16 | awk '{if(NR==8) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn_10_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |tail -16 | awk '{if(NR==8) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn_11_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |tail -16 | awk '{if(NR==8) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn_12_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |tail -16 | awk '{if(NR==8) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn_13_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |tail -16 | awk '{if(NR==8) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn_14_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |tail -16 | awk '{if(NR==8) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn_15_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |tail -16 | awk '{if(NR==8) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn_16_da_1.dat
+
+sum1=`grep 'Tr' fe.pert_$con.out |head -32 |tail -16 | awk '{if(NR==1) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn0_1_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |head -32 |tail -16 | awk '{if(NR==2) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn0_2_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |head -32 |tail -16 | awk '{if(NR==3) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn0_3_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |head -32 |tail -16 | awk '{if(NR==4) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn0_4_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |head -32 |tail -16 | awk '{if(NR==5) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn0_5_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |head -32 |tail -16 | awk '{if(NR==6) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn0_6_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |head -32 |tail -16 | awk '{if(NR==7) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn0_7_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |head -32 |tail -16 | awk '{if(NR==8) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn0_8_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |head -32 |tail -16 | awk '{if(NR==8) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn0_9_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |head -32 |tail -16 | awk '{if(NR==8) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn0_10_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |head -32 |tail -16 | awk '{if(NR==8) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn0_11_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |head -32 |tail -16 | awk '{if(NR==8) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn0_12_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |head -32 |tail -16 | awk '{if(NR==8) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn0_13_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |head -32 |tail -16 | awk '{if(NR==8) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn0_14_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |head -32 |tail -16 | awk '{if(NR==8) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn0_15_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |head -32 |tail -16 | awk '{if(NR==8) print $4}'`
+echo ' ' $con ' ' $sum1 >> dn0_16_da_1.dat
+
+done
+
+echo ' dn_1_da_1.dat  dn0_1_da_1.dat' >> file_sc8
+echo ' dn_2_da_1.dat  dn0_2_da_1.dat' >> file_sc8
+echo ' dn_3_da_1.dat  dn0_3_da_1.dat' >> file_sc8
+echo ' dn_4_da_1.dat  dn0_4_da_1.dat' >> file_sc8
+echo ' dn_5_da_1.dat  dn0_5_da_1.dat' >> file_sc8
+echo ' dn_6_da_1.dat  dn0_6_da_1.dat' >> file_sc8
+echo ' dn_7_da_1.dat  dn0_7_da_1.dat' >> file_sc8
+echo ' dn_8_da_1.dat  dn0_8_da_1.dat' >> file_sc8
+echo ' dn_9_da_1.dat  dn0_9_da_1.dat' >> file_sc8
+echo ' dn_10_da_1.dat  dn0_10_da_1.dat' >> file_sc8
+echo ' dn_11_da_1.dat  dn0_11_da_1.dat' >> file_sc8
+echo ' dn_12_da_1.dat  dn0_12_da_1.dat' >> file_sc8
+echo ' dn_13_da_1.dat  dn0_13_da_1.dat' >> file_sc8
+echo ' dn_14_da_1.dat  dn0_14_da_1.dat' >> file_sc8
+echo ' dn_15_da_1.dat  dn0_15_da_1.dat' >> file_sc8
+echo ' dn_16_da_1.dat  dn0_16_da_1.dat' >> file_sc8
+
+rm fe.pert*out 

@@ -1,0 +1,335 @@
+#!/bin/bash
+#PBS -q lionxi-seminar
+#PBS -l nodes=1:ppn=4
+#PBS -l walltime=2:00:00
+#PBS -j oe
+####################################################################
+#
+module load qe/5.0
+
+export PW_COMMAND=../Bin/pw.x
+export PP_COMMAND=../Bin/projwfc.x
+export PSEUDO_DIR=../pseudo
+export workdir=~/advanced-xc_DFTPU/Cu2O_Ucalc
+
+export results=./results_Cu2O
+export temp=./temp
+export temp1=./temp1
+
+#cd $workdir
+
+if [ ! -d $results ]; then
+   mkdir  $results
+fi
+
+if [ ! -d $temp ]; then
+   mkdir  $temp
+fi
+
+if [ ! -d $temp1 ]; then
+   mkdir  $temp1
+fi
+
+rm -r $temp/* $temp1/*
+
+#
+# clean temporary direactories
+#
+# self-consistent calculation
+#
+
+rm cu2o.scf.in
+cat > cu2o.scf.in << EOF
+&control
+   calculation='scf',
+   restart_mode='from_scratch',
+   prefix='cu2o',
+   pseudo_dir='$PSEUDO_DIR',
+   outdir='$temp',
+ /
+ &system
+    ibrav=0, 
+    celldm(1)=8.21
+    nat=24, 
+    ntyp=3,
+    nspin=1,
+    ecutwfc=30,
+    ecutrho=300,
+    lda_plus_u = .true.
+    Hubbard_U(1) = 1.d-10,
+    Hubbard_U(2) = 1.d-10
+    Hubbard_U(3) = 1.d-10
+/
+ &electrons
+    mixing_beta=0.3,
+    conv_thr=1.d-8
+ /
+ATOMIC_SPECIES
+  Cu1 1.0 Cu.pbe-d-rrkjus.UPF
+  Cu  1.0 Cu.pbe-d-rrkjus.UPF
+  O   1.0 O.pbe-rrkjus.UPF
+ATOMIC_POSITIONS {crystal}
+  Cu1   0.00 0.00 0.00
+  Cu   -0.25 0.75 0.00
+  Cu   -0.25 0.00 0.25
+  Cu    0.25 0.25 0.00
+  Cu   -0.25 0.25 0.50
+  Cu   -0.25 0.50 0.75
+  Cu    0.50 0.50 0.00
+  Cu    0.00 0.25 0.25
+  Cu    0.50 0.25 0.75
+  Cu    0.00 0.75 0.75
+  Cu    0.50 0.75 0.25
+  Cu    0.00 0.50 0.50
+  Cu    0.25 0.50 0.25
+  Cu    0.50 0.00 0.50
+  Cu    0.25 0.00 0.75
+  Cu    0.25 0.75 0.50
+  O    -0.25 0.00 0.00
+  O     0.25 0.00 0.00
+  O    -0.25 0.50 0.00
+  O    -0.25 0.00 0.50
+  O     0.25 0.50 0.00
+  O     0.25 0.00 0.50
+  O    -0.25 0.50 0.50
+  O     0.25 0.50 0.50
+CELL_PARAMETERS
+  1.00  1.00  1.00 
+ -1.00  1.00  1.00
+ -1.00 -1.00  1.00 
+K_POINTS {automatic}
+ 2 2 2 0 0 0
+EOF
+
+mpirun $PW_COMMAND < cu2o.scf.in > $results/cu2o.1.scf.out
+
+ethr=`grep -a ethr $results/cu2o.1.scf.out |tail -1 |awk '{print$3}'`
+
+rm -r $temp1/*
+cp -r $temp/* $temp1/
+
+for alpha in -0.02 0.0 0.02
+do
+
+rm -r $temp/*
+cp -r $temp1/* $temp/
+
+rm cu2o.scf.in
+cat > cu2o.scf.in << EOF
+&control
+   calculation='scf',
+   restart_mode='from_scratch',
+   prefix='cu2o',
+   pseudo_dir='$PSEUDO_DIR',
+   outdir='$temp',
+ /
+ &system
+    ibrav=0, 
+    celldm(1)=8.21
+    nat=24, 
+    ntyp=3,
+    ecutwfc=30,
+    ecutrho=300,
+    nspin=1,
+    lda_plus_u = .true.,
+    Hubbard_U(1) = 1.d-10,
+    Hubbard_U(2) = 1.d-10
+    Hubbard_U(3) = 1.d-10
+    Hubbard_alpha(1) = $alpha
+/
+ &electrons
+    mixing_beta=0.3,
+    startingwfc='file',
+    startingpot='file',
+    diago_thr_init = $ethr
+    conv_thr=1.d-8
+ /
+ATOMIC_SPECIES
+  Cu1 1.0 Cu.pbe-d-rrkjus.UPF
+  Cu  1.0 Cu.pbe-d-rrkjus.UPF
+  O   1.0 O.pbe-rrkjus.UPF
+ATOMIC_POSITIONS {crystal}
+  Cu1   0.00 0.00 0.00
+  Cu   -0.25 0.75 0.00
+  Cu   -0.25 0.00 0.25
+  Cu    0.25 0.25 0.00
+  Cu   -0.25 0.25 0.50
+  Cu   -0.25 0.50 0.75
+  Cu    0.50 0.50 0.00
+  Cu    0.00 0.25 0.25
+  Cu    0.50 0.25 0.75
+  Cu    0.00 0.75 0.75
+  Cu    0.50 0.75 0.25
+  Cu    0.00 0.50 0.50
+  Cu    0.25 0.50 0.25
+  Cu    0.50 0.00 0.50
+  Cu    0.25 0.00 0.75
+  Cu    0.25 0.75 0.50
+  O    -0.25 0.00 0.00
+  O     0.25 0.00 0.00
+  O    -0.25 0.50 0.00
+  O    -0.25 0.00 0.50
+  O     0.25 0.50 0.00
+  O     0.25 0.00 0.50
+  O    -0.25 0.50 0.50
+  O     0.25 0.50 0.50
+CELL_PARAMETERS
+  1.00  1.00  1.00 
+ -1.00  1.00  1.00
+ -1.00 -1.00  1.00 
+K_POINTS {automatic}
+ 2 2 2 0 0 0
+EOF
+
+mpirun $PW_COMMAND < cu2o.scf.in > $results/cud.$alpha.out
+
+done
+
+rm cu2o.scf.in
+cat > cu2o.scf.in << EOF
+&control
+   calculation='scf',
+   restart_mode='from_scratch',
+   prefix='cu2o',
+   pseudo_dir='$PSEUDO_DIR',
+   outdir='$temp',
+ /
+ &system
+    ibrav=0, 
+    celldm(1)=8.21
+    nat=24, 
+    ntyp=3,
+    ecutwfc=30,
+    ecutrho=300,
+    nspin=1,
+    lda_plus_u = .true.
+    Hubbard_U(1) = 1.d-10,
+    Hubbard_U(2) = 1.d-10
+    Hubbard_U(3) = 1.d-10
+/
+ &electrons
+    mixing_beta=0.3,
+    startingwfc='atomic+random',
+    conv_thr=1.d-8
+ /
+ATOMIC_SPECIES
+  Cu  1.0 Cu.pbe-d-rrkjus.UPF
+  O1  1.0 O.pbe-rrkjus.UPF
+  O   1.0 O.pbe-rrkjus.UPF
+ATOMIC_POSITIONS {crystal}
+  Cu    0.25 0.00 0.00
+  Cu    0.00 0.75 0.00
+  Cu    0.00 0.00 0.25
+  Cu    0.50 0.25 0.00
+  Cu    0.00 0.25 0.50
+  Cu    0.00 0.50 0.75
+  Cu    0.75 0.50 0.00
+  Cu    0.25 0.25 0.25
+  Cu    0.75 0.25 0.75
+  Cu    0.25 0.75 0.75
+  Cu    0.75 0.75 0.25
+  Cu    0.25 0.50 0.50
+  Cu    0.50 0.50 0.25
+  Cu    0.75 0.00 0.50
+  Cu    0.50 0.00 0.75
+  Cu    0.50 0.75 0.50
+  O1    0.00 0.00 0.00
+  O     0.50 0.00 0.00
+  O     0.00 0.50 0.00
+  O     0.00 0.00 0.50
+  O     0.50 0.50 0.00
+  O     0.50 0.00 0.50
+  O     0.00 0.50 0.50
+  O     0.50 0.50 0.50
+CELL_PARAMETERS
+  1.00  1.00  1.00 
+ -1.00  1.00  1.00
+ -1.00 -1.00  1.00 
+K_POINTS {automatic}
+ 2 2 2 0 0 0
+EOF
+
+mpirun $PW_COMMAND < cu2o.scf.in > $results/cu2o.2.scf.out
+
+ethr=`grep -a ethr $results/cu2o.2.scf.out |tail -1 |awk '{print$3}'`
+
+rm -r $temp1/*
+cp -r $temp/* $temp1/
+
+for alpha in -0.02 0.0 0.02
+do
+
+rm -r $temp/*
+cp -r $temp1/* $temp/
+
+rm cu2o.scf.in
+cat > cu2o.scf.in << EOF
+&control
+   calculation='scf',
+   restart_mode='from_scratch',
+   prefix='cu2o',
+   pseudo_dir='$PSEUDO_DIR',
+   outdir='$temp',
+ /
+ &system
+    ibrav=0, 
+    celldm(1)=8.21
+    nat=24, 
+    ntyp=3,
+    ecutwfc=30,
+    ecutrho=300,
+    nspin=1,
+    lda_plus_u = .true.
+    Hubbard_U(1) = 1.d-10,
+    Hubbard_U(2) = 1.d-10
+    Hubbard_U(3) = 1.d-10
+    Hubbard_alpha(2) = $alpha
+/
+ &electrons
+    mixing_beta=0.3,
+    startingwfc='file',
+    startingpot='file',
+    diago_thr_init = $ethr
+    conv_thr=1.d-8
+ /
+ATOMIC_SPECIES
+  Cu  1.0 Cu.pbe-d-rrkjus.UPF
+  O1  1.0 O.pbe-rrkjus.UPF
+  O   1.0 O.pbe-rrkjus.UPF
+ATOMIC_POSITIONS {crystal}
+  Cu    0.25 0.00 0.00
+  Cu    0.00 0.75 0.00
+  Cu    0.00 0.00 0.25
+  Cu    0.50 0.25 0.00
+  Cu    0.00 0.25 0.50
+  Cu    0.00 0.50 0.75
+  Cu    0.75 0.50 0.00
+  Cu    0.25 0.25 0.25
+  Cu    0.75 0.25 0.75
+  Cu    0.25 0.75 0.75
+  Cu    0.75 0.75 0.25
+  Cu    0.25 0.50 0.50
+  Cu    0.50 0.50 0.25
+  Cu    0.75 0.00 0.50
+  Cu    0.50 0.00 0.75
+  Cu    0.50 0.75 0.50
+  O1    0.00 0.00 0.00
+  O     0.50 0.00 0.00
+  O     0.00 0.50 0.00
+  O     0.00 0.00 0.50
+  O     0.50 0.50 0.00
+  O     0.50 0.00 0.50
+  O     0.00 0.50 0.50
+  O     0.50 0.50 0.50
+CELL_PARAMETERS
+  1.00  1.00  1.00 
+ -1.00  1.00  1.00
+ -1.00 -1.00  1.00 
+K_POINTS {automatic}
+ 2 2 2 0 0 0
+EOF
+
+mpirun $PW_COMMAND < cu2o.scf.in > $results/op.$alpha.out
+
+done
+

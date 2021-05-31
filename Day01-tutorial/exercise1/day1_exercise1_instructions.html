@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1265.2">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; min-height: 14.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; color: #ff0000}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; color: #ff00ff}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; color: #0000ff}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; color: #008000}
+    p.p7 {margin: 0.0px 0.0px 0.0px 26.8px; font: 12.0px Times; min-height: 14.0px}
+    p.p8 {margin: 0.0px 0.0px 0.0px 47.2px; font: 12.0px Times}
+    p.p9 {margin: 0.0px 0.0px 0.0px 47.2px; font: 12.0px Times; color: #ff00ff}
+    p.p10 {margin: 0.0px 0.0px 0.0px 47.2px; font: 12.0px Times; min-height: 14.0px}
+    p.p11 {margin: 0.0px 0.0px 0.0px 76.0px; font: 12.0px Times; min-height: 14.0px}
+    p.p13 {margin: 0.0px 0.0px 0.0px 47.2px; font: 12.0px Times; color: #0000ff}
+    p.p15 {margin: 0.0px 0.0px 0.0px 76.0px; font: 12.0px Times}
+    p.p16 {margin: 0.0px 0.0px 0.0px 76.0px; font: 12.0px Courier; color: #0061ff}
+    li.li1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times}
+    li.li3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; color: #ff0000}
+    li.li5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; color: #0000ff}
+    li.li12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; color: #2323dc}
+    li.li14 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    li.li17 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; color: #232323}
+    span.s1 {color: #ff0000}
+    span.s2 {text-decoration: underline ; color: #ff0000}
+    span.s3 {text-decoration: underline ; color: #ff00ff}
+    span.s4 {color: #000000}
+    span.s5 {color: #ff00ff}
+    span.s6 {text-decoration: underline}
+    span.s7 {color: #008000}
+    span.s8 {color: #0061ff}
+    span.s9 {font: 12.0px Courier; color: #0061ff}
+    span.s10 {font: 12.0px Courier; color: #4c2f2d}
+    span.s11 {font: 12.0px Times}
+    span.s12 {font: 12.0px Times; color: #008000}
+    span.s13 {font: 12.0px Helvetica}
+    span.s14 {color: #0000ff}
+    span.s15 {color: #018000}
+    span.s16 {font: 12.0px Helvetica; color: #0000ff}
+    span.s17 {color: #314004}
+    span.s18 {font: 12.0px Times; color: #0000ff}
+    span.s19 {color: #4c2f2d}
+    span.s20 {font: 4.0px Times}
+    ul.ul1 {list-style-type: disc}
+  </style>
+</head>
+<body>
+<p class="p1"><b>INSTRUCTIONS FOR DAY 1 (MASTANI, 2014), EXERCISE 1</b></p>
+<p class="p2"><br></p>
+<p class="p1">Note that the following color code has been used in this instruction sheet:</p>
+<p class="p3">Broad headings are in red.</p>
+<p class="p4">File names are in magenta.</p>
+<p class="p5">Phrases to be typed into the command line are in blue.</p>
+<p class="p6">Input parameters are in dark green.</p>
+<p class="p7"><br></p>
+<p class="p3">In this exercise, you will first perform simple scf (self-consistent field) calculations on silicon.</p>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li1"><span class="s1"></span><span class="s2">STEP 1: Go to the directory </span><span class="s3">~/hands_on/week1/day1/exercise1</span> (if you are not already there!)</li>
+</ul>
+<p class="p8">You will see the following files:</p>
+<p class="p9">day1_exercise1_instructions.html <span class="s4">this file!</span></p>
+<p class="p8"><span class="s5">Si.sample.in </span>this is a sample input file, for a primitive Si cell containing 2 atoms.</p>
+<p class="p8"><span class="s5">Si.sample.sh</span> this is a sample shell script that you can use (optionally) .</p>
+<p class="p10"><br></p>
+<p class="p10"><br></p>
+<p class="p8">For each calculation that you will run, you can use <span class="s5">Si.sample.in</span> as a template that you can copy to another file and then edit. Alternatively, you can use shell scripts to automate this process.</p>
+<p class="p10"><br></p>
+<ul class="ul1">
+  <li class="li3">STEP 2: Open and read the sample file<span class="s6"> </span><span class="s5">Si.sample.in</span></li>
+</ul>
+<p class="p11"><br></p>
+<ul class="ul1">
+  <li class="li1">Note that in the <span class="s7">&amp;control</span><span class="s5"> </span>namelist, we have specified that we want to run an <span class="s7">scf</span> calculation.</li>
+  <li class="li1">Silicon has the diamond structure. Note that we are using a (primitive) unit cell that corresponds to an fcc lattice, with 2 Si atoms in the atomic basis. Notice the values given for <span class="s7">ibrav, nat, ntyp</span> and <span class="s7">ATOMIC_POSITIONS</span>.</li>
+  <li class="li1">In this file, the lattice constant <span class="s7">celldm(1) </span>has been set equal to 10.26 bohr = 5.43 Å, which is the experimental value.<span class="Apple-converted-space"> </span></li>
+  <li class="li1">A 6×6×6 shifted Monkhorst-Pack k-point mesh has been used.</li>
+  <li class="li1">The plane-wave cut-off for wavefunctions, <span class="s7">ecutwfc</span>, has been set to 20 Ry. Since we are not using an ultrasoft pseudopotential, we are leaving <span class="s7">ecutrho </span>at the default value.</li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><span class="s6">STEP 3: Use Xcrysden to view the structure in the sample input file:</span></li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li12">xcrysden --pwi Si.sample.in</li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li1">Play around with xcrysden! Rotate the view, display the boundaries of the conventional cubic cell, etc.</li>
+  <li class="li1">How many atoms are contained in the conventional cubic cell?<span class="Apple-converted-space"> </span></li>
+  <li class="li1">What is the coordination number of each atom?<span class="Apple-converted-space"> </span></li>
+  <li class="li1">What is the nearest-neighbor distance?<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><span class="s6">STEP 4: Run an scf calculation:</span></li>
+</ul>
+<p class="p2"><br></p>
+<p class="p8">The way to do this is:</p>
+<p class="p10"><br></p>
+<p class="p13">~<span class="s8">/</span><span class="s9">usr/local/apps/espresso-5.1/</span>bin/pw.x &lt; input_filename &gt; output_filename</p>
+<p class="p10"><br></p>
+<p class="p8">So in this particular case, you will type:</p>
+<p class="p2"><br></p>
+<p class="p13">~/<span class="s9">usr/local/apps/espresso-5.1</span><span class="s10">/</span>bin/pw.x &lt; Si.sample.in &gt; Si.sample.out</p>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><span class="s6">STEP 5: Read the output, and answer the following questions:</span></li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li1">Was symmetry used to reduce the number of k-points from 6×6×6=216?<span class="Apple-converted-space"> </span></li>
+  <li class="li1">How many scf iterations were performed before convergence was achieved?<span class="Apple-converted-space"> </span></li>
+  <li class="li1">What is the final (converged) value for the total energy? (Note: you can find this by looking for an exclamation mark in the output file). For example, you can type:</li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li5">grep ! Si.sample.out</li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li14">Note: If you set<span class="s11"> </span><span class="s12">verbosity = 'high'</span><span class="s11"> </span>in the<span class="s12"> &amp;control</span><span class="s11"> </span>namelist, you will get additional information in your output file, e.g., about symmetries and occupation numbers.</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><span class="s6">STEP 6: Now do convergence tests with respect to plane-wave cut-off:</span></li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li1">Find out how the total energy changes when you vary the plane wave cut-off <span class="s7">ecutwfc</span> between 10 and 30 Ry, in steps of 5 Ry. You can either do this by copying the sample file <span class="s5">Si.sample.in </span><span class="s13">t</span>o other input files and editing them, and running <span class="s14">pw.x</span> using each of these input files in turn, or by running the sample shell script <span class="s5">Si.sample.sh</span><span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li5">./Si.sample.sh</li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li1">Now make a data file (e.g., you can call it <span class="s5">etot_vs_ecut.dat</span>) that contains the value of <span class="s7">ecutwfc</span> in the first column, and total energy in the second column. Remember that you can easily find the values of the total energy by searching for an exclamation mark, e.g., using the <span class="s14">grep</span> command.<span class="Apple-converted-space"> </span></li>
+  <li class="li1">Plot a graph of this data using your favorite plotting program (e.g., <span class="s14">xmgrace</span>).</li>
+</ul>
+<ul class="ul1">
+  <li class="li1">Does the total energy decrease monotonically as <span class="s7">ecutwfc</span> is increased?<span class="Apple-converted-space"> </span></li>
+  <li class="li1">How does the time required to run the calculation change with increasing <span class="s15">ecutwfc</span>? (The runtime is given at the end of the output file.)<span class="s15"><span class="Apple-converted-space"> </span></span></li>
+  <li class="li1">What value of <span class="s7">ecutwfc</span> are you 'happy' with?<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><span class="s6">STEP 7: Now examine convergence with respect to Brillouin zone sampling:</span></li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li1">Fix the value of <span class="s7">ecutwfc</span> at whatever value you have decided is good enough. (Remember: differences in energy matters rather than the absolute value of the total energy!) I chose <span class="s7">ecutwfc</span> to be 20 Ry, but you can make whatever choice you want!<span class="Apple-converted-space"> </span></li>
+</ul>
+<ul class="ul1">
+  <li class="li1">Let the lattice constant <span class="s7">celldm(1) </span>remain at the experimental value.</li>
+</ul>
+<p class="p15">Vary the Monkhorst-Pack grid parameters <span class="s7">nk1</span>, <span class="s7">nk2</span> and <span class="s7">nk3</span>.</p>
+<p class="p15">You can do this either by manually editing <span class="s5">input files</span>, or by modifying the script <span class="s5">Si.sample.sh</span></p>
+<p class="p15">Use <span class="s7">nk1</span>=<span class="s7">nk2</span>=<span class="s7">nk3</span>= 1, 2, 3, 4, 5, 6.</p>
+<p class="p15">Leave the offset at <span class="s7">k1</span>=<span class="s7">k2</span>=<span class="s7">k3</span> = 1.</p>
+<ul class="ul1">
+  <li class="li1">Run <span class="s14">pw.x </span><span class="s16">(with correct path)</span> for each of the six <span class="s5">input files</span> you have made (either one by one, or using the shell script).</li>
+</ul>
+<p class="p15">Remember: <b>don't overwrite</b> <span class="s5">output files</span> before you extract data from them!</p>
+<ul class="ul1">
+  <li class="li1">Assemble a <span class="s5">data file</span> that contains how the total energy varies with <span class="s7">nk1</span>=<span class="s7">nk2</span>=<span class="s7">nk3</span>. The first column should contain the value of <span class="s7">nk1</span> (or, if you prefer, the number of k-points generated and used), and the second column should contain the value of the total energy.</li>
+  <li class="li1">Plot a graph of this data. Do you think that the total energy is converging as you increase the number of k-points?</li>
+</ul>
+<ul class="ul1">
+  <li class="li1">Do you think it was a good choice to take <span class="s7">nk1</span>=<span class="s7">nk2</span>=<span class="s7">nk3</span>? Why?</li>
+  <li class="li1">Is the convergence wrt the number of k-points monotonic? (Note that it need not necessarily be so!)</li>
+  <li class="li1">How does the time required to run the calculation change with increas<span class="s17">ing number of k-points</span>? (The runtime is given at the end of the output file.)</li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><span class="s6">STEP 8: Now obtain the equilibrium lattice constant of Si:</span></li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li1">Fix values of ecutwfc and nk1=nk2=nk3. I chose <span class="s7">ecutwfc</span> = 20 and <span class="s7">nk1</span>=<span class="s7">nk2</span>=<span class="s7">nk3</span>=6, but you can choose other values if you feel that they are more appropriate.</li>
+</ul>
+<ul class="ul1">
+  <li class="li1">Make input files in which you vary the lattice constant, i.e., <span class="s7">celldm(1)</span>, from 9.8 to 11.0 bohr, in steps of 0.2 bohr. (Again, you can do this by hand or modify the <span class="s5">shell script</span>).</li>
+</ul>
+<ul class="ul1">
+  <li class="li1">Run these seven scf calculations.</li>
+</ul>
+<p class="p8">Assemble the results for the dependence of total energy on lattice constant in a data file, e.g., one called <span class="s5">etot_vs_alat.dat</span> (2 columns, the first containing the lattice constant in bohr, and the second containing total energy in Ry).</p>
+<ul class="ul1">
+  <li class="li1">Plot this data.<span class="Apple-converted-space"> </span></li>
+</ul>
+<ul class="ul1">
+  <li class="li1">By looking at this data, do you think that your result for the equilibrium lattice constant is larger or smaller than experiment? Why is there a discrepancy between the theoretical and experimental values?</li>
+</ul>
+<ul class="ul1">
+  <li class="li1">Is the energy symmetric about the minimum value? Would you expect it to be so?</li>
+</ul>
+<ul class="ul1">
+  <li class="li1">Fit this data to an equation of state by running<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<p class="p16"><span class="s18">~/</span>usr/local/apps/espresso-5.1<span class="s19">/</span><span class="s18">bin/ev.x</span></p>
+<p class="p11"><br></p>
+<p class="p15">When you run this, you will be prompted to supply:</p>
+<ul class="ul1">
+  <li class="li1">the unit of lattice parameter (either atomic unit Bohr or Angstorm)<span class="Apple-converted-space"> </span></li>
+</ul>
+<ul class="ul1">
+  <li class="li1">the type of Bravais lattice (sc/fcc/bcc)<span class="Apple-converted-space"> </span></li>
+  <li class="li1">which particular equation of state you want to use</li>
+  <li class="li1">(I usually use the 2<span class="s20"><sup>nd</sup></span> Order Birch eq., but you can experiment with other choices too.)</li>
+  <li class="li1">the name of the <span class="s5">input file</span> containing the data of lattice constant and total energy</li>
+  <li class="li1">the name of the <span class="s5">output file</span> where you want the results of the fitting procedure</li>
+</ul>
+<ul class="ul1">
+  <li class="li1">Look at the <span class="s5">output file</span> (whose name you supplied in the previous step):</li>
+</ul>
+<ul class="ul1">
+  <li class="li1">From the fit, what are the values of the equilibrium lattice constant a0 and bulk modulus k0? (The experimental value for the bulk modulus is 101.97 GPa = 1019.7 kbar ). <b>Look at the</b> <span class="s5">output file<span class="Apple-converted-space"> </span></span></li>
+  <li class="li1">If there is a discrepancy between experimental and theoretical values, can you understand where this arises from?</li>
+  <li class="li1">Can you tell whether the quality of fit is good or poor?</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p3"><span class="s6">Some optional extra stuff :</span></p>
+<p class="p2"><br></p>
+<p class="p15">If you finished all of the above stuff and you still have some time left, you can (if you choose) do other things, e.g.:</p>
+<p class="p11"><br></p>
+<ul class="ul1">
+  <li class="li3">Obtain graphs of total energy vs. lattice constant at some very low values of<span class="s4"> </span><span class="s7">ecutwfc</span>.<span class="Apple-converted-space"> </span></li>
+  <li class="li1">Do you notice any change in the shape or nature of the curve? If yes, do you understand why?</li>
+  <li class="li17">Repeat the calculations for Si using a conventional cubic cell instead of an fcc primitive cell.</li>
+</ul>
+<p class="p2"><br></p>
+</body>
+</html>

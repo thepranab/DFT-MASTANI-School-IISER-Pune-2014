@@ -1,0 +1,6 @@
+
+####################################################################
+# include the needed environment variables 
+PW_ROOT=/usr/local/apps/espresso-5.1/bin
+PSEUDO_DIR=$HOME/july3/pseudo
+TMP_DIR=tmp

@@ -1,0 +1,18 @@
+&lr_input
+    prefix="benzene",
+    outdir='./out',
+    restart_step=50,
+/
+&lr_control
+    itermax=900,
+    ipol=1
+    charge_response=1
+/
+&lr_post
+   omeg=0.501
+   epsil=0.001
+   w_T_npol=3
+   plot_type=3
+/
+
+

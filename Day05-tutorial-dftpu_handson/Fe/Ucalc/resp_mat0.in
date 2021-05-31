@@ -1,0 +1,7 @@
+ &input_mat 
+   ntyp = 1 
+   na(1) = 8 
+   nalfa = 5 
+   filepos = 'pos_bcc8' 
+   back = 'no' 
+   filednda = 'file_bcc8' 

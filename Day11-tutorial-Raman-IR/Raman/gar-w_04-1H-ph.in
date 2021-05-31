@@ -1,0 +1,16 @@
+phonons of Chevron-like ribbon at Gamma
+&inputph
+    tr2_ph            = 1e-12
+    prefix            = 'gar-w_04-1H'
+    amass(1)          =  12.0107
+    amass(2)          =   1.0079
+    outdir            = './scratch/'
+    fildyn            = 'gar-w_04-1H-ph.dyn'
+    recover           = .false.
+    epsil             = .true.
+    lraman            = .true.
+    trans             = .true.
+    fildrho           = "gar-w_04-1H-ph.fildrho"
+    max_seconds       = 350000
+/
+0.0 0.0 0.0

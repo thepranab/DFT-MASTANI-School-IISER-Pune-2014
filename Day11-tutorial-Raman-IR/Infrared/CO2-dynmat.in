@@ -1,0 +1,4 @@
+&input
+  fildyn   = 'CO2.dyn'
+  asr      = 'zero-dim'
+/

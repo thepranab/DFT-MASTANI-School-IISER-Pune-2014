@@ -1,0 +1,10 @@
+&lr_input
+    prefix="CO",
+    outdir='./out',
+    restart_step=50,
+/
+&lr_control
+    itermax=1600,
+    ipol=4
+/
+

@@ -1,0 +1,49 @@
+#!/bin/bash -l
+#
+######################################################
+
+rm -f dn*da*
+rm -f file.cu2o.24
+
+# Response to perturbed Cu-d states
+
+for at in {1..24} 
+do
+
+for con in -0.02 0.0 0.02
+do
+
+sum1=`grep 'Tr' cud.$con.out | tail -24 | head -$at | tail -1 | awk '{print $5}'`
+echo ' ' $con ' ' $sum1 >> dn.$at.da.1.dat
+
+sum1=`grep 'Tr' cud.$con.out | head -48 | tail -24 | head -$at| tail -1| awk '{print $5}'`
+echo ' ' $con ' ' $sum1 >> dn0.$at.da.1.dat
+
+done
+
+echo  dn.$at.da.1.dat  dn0.$at.da.1.dat >> file.cu2o.24
+
+done
+
+# Response to perturbed O-p states
+
+for at in {1..24} 
+do
+
+for con in -0.02 0.0 0.02
+do
+
+sum1=`grep 'Tr' op.$con.out | tail -24 | head -$at| tail -1| awk '{print $5}'`
+echo ' ' $con ' ' $sum1 >> dn.$at.da.17.dat
+
+sum1=`grep 'Tr' op.$con.out |head -48 | tail -24 | head -$at| tail -1| awk '{print $5}'`
+echo ' ' $con ' ' $sum1 >> dn0.$at.da.17.dat
+
+done
+
+echo  dn.$at.da.17.dat  dn0.$at.da.17.dat >> file.cu2o.24
+
+done
+
+rm  cu*.out  o*.out 
+

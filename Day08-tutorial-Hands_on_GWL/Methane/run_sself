@@ -1,0 +1,69 @@
+#!/bin/sh
+
+PSEUDO_DIR='../Pseudo/'
+TMP_DIR='./tmp'
+BIN_DIR='/usr/local/apps/espresso-5.1/bin/'
+
+PARA_PREFIX='mpirun -np 2'
+PARA_POSTFIX=' -nk 1 -nd 1 -nb 1 -nt 1 '
+
+PW4GWW_COMMAND="$PARA_PREFIX $BIN_DIR/pw4gww.x $PARA_POSTFIX"
+GWW_COMMAND="$PARA_PREFIX $BIN_DIR/gww.x $PARA_POSTFIX"
+
+# check whether echo has the -e option
+if test "`echo -e`" = "-e" ; then ECHO=echo ; else ECHO="echo -e" ; fi
+
+
+for sself_l in 0.01 0.00001 0.000000001 1d-12 ; do
+
+cat > methane_pw4gww.in << EOF
+&inputpw4gww    
+    prefix='ch4'
+    num_nbndv(1)=4
+    num_nbnds=5
+    l_truncated_coulomb=.true.
+    truncation_radius=7.5d0
+    numw_prod= 50
+    pmat_cutoff= 3
+    pseudo_dir = '$PSEUDO_DIR/',
+    outdir='$TMP_DIR/'
+    n_pola_lanczos=400
+    s_pola_lanczos=0.5d0
+    nsteps_lanczos_pola=20
+    n_self_lanczos=600
+    s_self_lanczos=$sself_l
+    nsteps_lanczos_self=40
+/
+
+EOF
+$ECHO "  running the pw4gww calculation for methane...\c"
+$PW4GWW_COMMAND < methane_pw4gww.in > methane_pw4gww.out_sself${sself_l}
+$ECHO " done"
+
+
+    cat > methane_gww.in << EOF
+&inputgww
+ggwin%prefix='ch4'
+ggwin%max_i=5,
+ggwin%i_min=1
+ggwin%i_max=5
+ggwin%omega=20
+ggwin%n=118,
+ggwin%tau=11.8
+ggwin%grid_freq=5
+ggwin%second_grid_i=3
+ggwin%second_grid_n=10
+ggwin%omega_fit=20
+ggwin%n_grid_fit=240
+ggwin%n_fit=120,
+ggwin%n_multipoles=2
+ggwin%l_truncated_coulomb=.true.
+ggwin%outdir='$TMP_DIR'
+/
+
+EOF
+    $ECHO "  running the gww calculation for methane...\c"
+    $GWW_COMMAND < methane_gww.in > methane_gww.out_sself${sself_l}
+    $ECHO " done"
+
+done

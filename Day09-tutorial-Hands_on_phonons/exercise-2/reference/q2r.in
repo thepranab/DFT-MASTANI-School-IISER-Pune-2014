@@ -1,0 +1,5 @@
+&input
+ fildyn='si.dynmat',
+ zasr='simple'
+ flfrc='si444.fc'
+/

@@ -1,0 +1,15 @@
+Check the atomic structure of this 3 atom Cr cluster with xcrysden
+To avoid losing to much time start the execution of pw.nc.job and pw.nc2.job at the same time.
+
+
+-------------------
+pw.nc.job  : scf non-collinear calculation of a Cr trimer starting from a frustrated AF collinear magnetization (++-)
+
+
+In this example we study the case of Cr trimer forming an equilateral triangle which is the achetype of frustrated AF. The initial magnetization is taken collinear with two "up" atoms and one "down". What is the final configuration?
+
+
+-------------------
+pw.nc2.job : scf non-collinear calculation of a Cr trimer starting from an in-plane magnetization converging towards the ground state.
+
+In this example the starting magnetization is no longer collinear. The "collinear" symmetry is broken and the system can explore a much larger range of magnetic configurations. What is the final structure? Compare its total energy with the prevvious case. What is the most stable?

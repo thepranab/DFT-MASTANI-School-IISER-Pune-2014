@@ -1,0 +1,50 @@
+#!/bin/sh
+
+PSEUDO_DIR='../Pseudo/'
+TMP_DIR='./tmp'
+BIN_DIR='/usr/local/apps/espresso-5.1/bin/'
+
+PARA_PREFIX='mpirun -np 2'
+PARA_POSTFIX=' -nk 1 -nd 1 -nb 1 -nt 1 '
+
+GWW_COMMAND="$PARA_PREFIX $BIN_DIR/gww.x $PARA_POSTFIX"
+
+# check whether echo has the -e option
+if test "`echo -e`" = "-e" ; then ECHO=echo ; else ECHO="echo -e" ; fi
+
+    cat > methane_gww.in << EOF
+&inputgww
+ggwin%prefix='ch4'
+ggwin%max_i=5,
+ggwin%i_min=1
+ggwin%i_max=5
+ggwin%omega=20
+ggwin%n=118,
+ggwin%tau=11.8
+ggwin%grid_freq=5
+ggwin%second_grid_i=3
+ggwin%second_grid_n=10
+ggwin%omega_fit=20
+ggwin%n_grid_fit=240
+ggwin%n_fit=120,
+ggwin%n_multipoles=2
+ggwin%l_truncated_coulomb=.true.
+ggwin%outdir='$TMP_DIR'
+/
+
+EOF
+    $ECHO "  running the gww calculation for methane...\c"
+    $GWW_COMMAND < methane_gww.in > methane_gww.out
+    $ECHO " done"
+
+    #copy self_energy files
+    $ECHO  "copying self-energy files..\c"
+    cp $TMP_DIR/ch4-im_on_im* .
+    cp $TMP_DIR/ch4-re_on_im* .
+    cp $TMP_DIR/ch4-bands.dat . 
+
+    # clean TMP_DIR
+#    $ECHO "  cleaning $TMP_DIR...\c"
+#    rm -rf $TMP_DIR/ch4*
+#    $ECHO " done"
+

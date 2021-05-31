@@ -1,0 +1,53 @@
+
+------------------------
+pw.alat.job : compute total energy and magnetization versus the lattice parameter for Fe.bcc.FM (pw.x)
+
+After running pw.x for several lattice parameters (the output files are stored in a single file by using the double redirection >> instead of >). Then a simple bash command (grep+awk) is searching for the total energy and total magnetization of the system that are stored in Fe.bcc.FM.etot_vs_lattice and Fe.bcc.FM.mag_vs_lattice.
+
+Using xmgrace plot E(d) and M(d). Try to play with various input parameters: number of K-points and smearing etc...
+and see of E(d) and M(d) are affected.
+
+-----------------------------
+pw.band.job : compute the spin-polarized band structure of Fe.bcc.FM (pw.x + bands.x)
+
+The band structure is performed in three steps: a first scf pw.x calculation and then an nscf calculation for a given K-path in the Brillouin zone. There are differents ways of entering the K-Path. Either explicitely or by the option K_POINTS (tpiba_b) that allows you to draw lines between extremal points. This is the option that we have used.
+
+Finally bands.x is a post-processing tool that generates the band-structure (kx,ky,kz E(kx,ky,kz)) and can do all kind of symmetry analysis found in the output files for up and down spins Fe.bcc.bands.up.out and Fe.bcc.FMbands.dn.out
+
+The simple code make_bands.x is just transforming the kx,ky,kz E(kx,ky,kz) file into a sk,E(kx,ky,kz) file where sk measure the length of the path. The files Fe.bcc.bands.up.dat and Fe.bcc.bands.dn.dat are directly readable by xmgrace.
+
+Plot the band structure for up and down spin. Evaluate the Stoner parameter.
+
+-----------------------------------
+pw.dos.job  : compute the spin-polarized density of states of Fe.bcc.FM(pw.x + projwfc.x)
+
+The DOS is performed in three steps: a first scf pw.x calculation and a subsequent nscf calculation with a larger number of K-point to have a smoother DOS(E) curve.
+
+projwfx.x is a post-processing tool that project the Kohn Sham wave functions onto the pseudo-atomic wave functions with a lowdin procedure.
+
+A general output file (Fe.bcc.FM.projwfc.out) is generated with a summary of various results.
+In particular at the end of the file you will get the projected charges and magnetic moments.
+
+Compare the atomic-projected magnetization (output of projwfc.x) and the magnetization integrated in a sphere (output of pw.x (5.1 version))
+
+Apart from the general output a large number of files containing the projected DOS come out of projwfc.x (number of atoms x number of orbitals per atom).
+
+Since there is only one atom in the unit-cell you get only 3 files for s,p and d orbitals.
+The format of the output file is basically of the form 
+E DOSup(E) DOSdw(E)  PDOSup(E) PDOSdw(E)
+
+with xmgrace plot the two curves DOSup(E) DOSdw(E) for d bands.
+ What is the band spillting? Compare the band width for up and down spins. What do you notice? Do you have a "waving hand" explanation?
+
+
+----------------------------
+pw.fsm.job  : compute fixed spin moment calculation at various lattice parameters of Fe.fcc.FM (pw.x)
+
+The structure considered is not Fe.bcc but Fe.fcc which has a more complex magetic behavior. In particular two magnetic solution (Low spin and Hihg Spin) are coexisting in a range of lattice parameters.
+
+pw.fsm.job is running a series of pw.x scf calculations with the option tot_magnetization=M that fixes the total magnetization to a given value. 
+
+The bash script is then extracting the curve E(M) that is stored in Fe.fcc.FM.etot_vs_mag
+Plot E(M) at various lattice parameters.
+What do you notice for lattice parameters around 3.55Angstroms?
+

@@ -1,0 +1,10 @@
+&input
+     fildyn='alas.dynmat_G',
+     asr='simple',  
+     amass(1)= 26.98,
+     amass(2)= 74.92,
+     q(1)=1.0, q(2)=0.0, q(3)=0.00,
+     filout='dynmat.out',
+     filxsf='dynmat.axsf',
+/
+

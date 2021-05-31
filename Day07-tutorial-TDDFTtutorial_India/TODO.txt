@@ -1,0 +1,123 @@
+QE TDDFPT tutorial
+==================
+
+
+I) PREPARATION
+--------------
+
+1) Download the TDDFTtutorial_India.tar.gz file.
+
+2) Unpack the archive:
+
+cd ~
+mv Downloads/TDDFTtutorial_India.tar.gz ~ 
+tar vxfz TDDFTtutorial_India.tar.gz
+
+3) Go to the QEtutorial file:
+
+cd TDDFTtutorial
+
+
+4) Define the path to the quantum-ESPRESSO programs:
+
+export BINDIR=/usr/local/apps/espresso-5.1/bin
+
+
+II) RUN GROUND STATE CALCULATION FOR BENZENE
+--------------------------------------------
+
+mpirun -np 4 $BINDIR/pw.x < Benzene.pw-in | tee Benzene.pw-out
+
+III) RUN TDDFPT AND CALCULATE RECURSION COEFFICIENTS
+-----------------------------------------------------
+
+mpirun -np 4 $BINDIR/turbo_lanczos.x < Benzene.tddfpt-in | tee Benzene.tddfpt-out
+
+This job will take a lot of time (approx 2.5 hours). You can stop it
+after some iterations. A complete output file is given:
+
+./Reference/Benzene.tddfpt-out
+
+The important recursion coefficients are stored in the files
+out/benzene.beta_gamma_z.1
+out/benzene.beta_gamma_z.2
+out/benzene.beta_gamma_z.3
+
+In order to go on with the tutorial, without having computed yet all
+the coefficients yet, please copy the sample file to this filename:
+
+cp Reference/benzene.beta_gamma_z.[123] out/
+
+
+IV) Compute spectra
+--------------------
+
+$BINDIR/turbo_spectrum.x < Benzene.tddfpt_pp-in
+
+The result is given in the file benzene.plot
+
+The lines starting with chi_x_y give the x-y components of the suseptibility tensor.
+Format: 
+You find in column 2: Energy [Ry]
+In column 3: Re[chi(omega)]
+In column 4: Im[chi(omega)]
+
+The lines starting with S(E) give the (experimentally observed) strength function.
+Format:
+In column 2: Energy [Ry]
+In column 3: S(E)
+
+
+In order to plot the strength function (for example), you have to filter the relevant
+lines from the benzene.plot file.
+Example:
+grep S\(E\) benzene.plot > S.dat
+
+S.dat can be visualized using xmgrace or gnuplot.
+
+
+
+You can compute several spectra varying in Benzene.tddfpt_pp-in
+
+itermax0: The number of computed coefficients read from file
+benzene.beta_gamma_z.[123]. This number must be <= the number of
+coefficients stored in the file
+
+itermax: The number of coefficients used in the continued fraction
+with terminator. From itermax0 onwards, these coefficients will be
+extrapolated
+
+terminator: use "osc" for the even/odd terminator
+            use "no" for not using a terminator
+
+
+IV) Compute charge density response
+-----------------------------------
+
+mpirun -np 4 $BINDIR/turbo_lanczos.x < Benzene.tddfpt-in-s2
+
+The result are Gaussian Cube files. You can find the result of this calculation
+in the Reference/ directory:
+
+The imaginary part of the response charge density in:
+benzene-absorbtive-pol1.cube 
+
+The real part of the response charge density in:
+benzene-dispersive-pol1.cube 
+
+Visualize the absorbtive response charge using xcrysden.
+
+V) Given are also input and output files for turbo_davidson.x in the same
+system. Note in the file Reference/benzene.eigen how many single excitations 
+are involved.
+
+
+V) Potential energy surface of a CO molecule
+---------------------------------------------
+
+Go to the directory CO.
+
+Calculate the first two excited states of CO for varying C-O atomic distances.
+
+Interpret the resulting first potential energy surface.
+

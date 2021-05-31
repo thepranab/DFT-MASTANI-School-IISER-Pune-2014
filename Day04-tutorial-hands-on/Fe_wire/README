@@ -1,0 +1,29 @@
+   In these two examples we are using a relativistic pseudopotential and in the &system card you should specify
+    noncolin=.true.
+    lspinorb=.true. 
+
+----------------
+pw.aniso.alat.job:  calculate the magnetic anisotropy energy Etot(M//)-Etot(Mperp) of Fe wire at two interatomic distances.
+
+Vizualize the system with xcrysden
+
+The total energy is computed for two orientations of the magnetization (and two interatomic dsitances): M// the wire and M perpendicular to the wire.
+
+What do you notice?
+
+
+-----------------------------------------------------------
+pw.aniso.theta.job: calculate the curve Etot(M(theta)) for a Fe wire
+
+When the initial magnetization is along or perpendicular to the wire the system remains in its initial configuration (see pw.aniso.alat.job) but if the magnetization make an arbitrary angle with the wire a standard scf calculation should converge towards the "easy axis" of the system. Therefore if one wants to calculate the E(theta) curve it is necessary to use the penalization technique on the theta angle. 
+There are many options for penalization. In our case we wish to penalize the angle theta. This is achieved by setting
+
+    constrained_magnetization= 'atomic direction'	
+    angle1(1)=$theta
+    angle2(1)=0
+the lambda value is the default one (1Ry)
+
+Plot the E(theta) curve. Fit this curve with Kcos^2theta.
+
+
+

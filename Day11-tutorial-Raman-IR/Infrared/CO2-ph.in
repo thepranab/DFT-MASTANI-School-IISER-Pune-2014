@@ -1,0 +1,13 @@
+Normal modes for CO2
+&inputph
+  tr2_ph    = 1e-14
+  prefix    = 'CO2'
+  amass(1)  = 12.0110
+  amass(2)  = 15.9994
+  outdir    = './scratch/'
+  epsil     = .true.
+  trans     = .true.
+  asr       = .true.
+  fildyn    = 'CO2.dyn'
+ /
+ 0.0 0.0 0.0

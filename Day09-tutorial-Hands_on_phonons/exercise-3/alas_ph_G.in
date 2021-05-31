@@ -1,0 +1,10 @@
+ &inputph
+   outdir='./tmp/',
+   prefix='alas',
+   fildyn='alas.dynmat_G',
+   epsil=.true., 
+   tr2_ph=1.0d-14,
+   amass(1)= 26.98,
+   amass(2)= 74.92,
+ /
+0.0 0.0 0.0

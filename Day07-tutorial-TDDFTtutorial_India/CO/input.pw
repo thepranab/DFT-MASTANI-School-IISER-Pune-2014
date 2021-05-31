@@ -1,0 +1,30 @@
+&control 
+calculation='scf', 
+restart_mode='from_scratch', 
+pseudo_dir = '../pseudo', 
+outdir='./out', 
+prefix='CO',
+/ 
+
+&system
+ibrav= 1, 
+celldm(1)=20, 
+nat= 2, 
+ntyp= 2, 
+ecutwfc = 25.d0
+ecutrho = 300.d0
+nbnd=10
+/ 
+
+&electrons
+conv_thr=1d-10
+/ 
+
+ATOMIC_SPECIES
+C 12.011 C.pbe-rrkjus.UPF
+O 15.999 O.pbe-rrkjus.UPF
+
+ATOMIC_POSITIONS {angstrom}
+C 5.000 5.000 4.436
+O 5.000 5.000 5.714 
+K_POINTS {gamma}

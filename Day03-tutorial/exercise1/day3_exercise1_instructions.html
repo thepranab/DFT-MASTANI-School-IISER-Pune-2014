@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1265.2">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Times}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Times; min-height: 18.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Times; color: #ff0000}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Times; color: #ff00ff}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Times; color: #0000ff}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Times; color: #008000}
+    p.p7 {margin: 0.0px 0.0px 0.0px 26.8px; font: 14.0px Times; min-height: 18.0px}
+    p.p8 {margin: 0.0px 0.0px 0.0px 47.2px; font: 14.0px Times}
+    p.p9 {margin: 0.0px 0.0px 0.0px 47.2px; font: 14.0px Times; color: #ff00ff}
+    p.p10 {margin: 0.0px 0.0px 0.0px 47.2px; font: 14.0px Times; min-height: 18.0px}
+    p.p11 {margin: 0.0px 0.0px 0.0px 76.0px; font: 14.0px Times; min-height: 18.0px}
+    p.p12 {margin: 0.0px 0.0px 0.0px 47.2px; font: 14.0px Times; color: #0000ff}
+    li.li1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Times}
+    li.li3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Times; color: #ff0000}
+    li.li13 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+    span.s1 {text-decoration: underline}
+    span.s2 {text-decoration: underline ; color: #ff00ff}
+    span.s3 {color: #000000}
+    span.s4 {color: #ff00ff}
+    span.s5 {font: 14.0px Helvetica}
+    span.s6 {color: #008000}
+    span.s7 {font: 14.0px Times; color: #008000}
+    span.s8 {font: 14.0px Times}
+    span.s9 {font: 14.0px Times; color: #0000ff}
+    span.s10 {font: 14.0px Times; color: #018000}
+    span.s11 {font: 14.0px Times; color: #0433ff}
+    span.s12 {color: #355e00}
+    span.s13 {color: #0433ff}
+    span.s14 {color: #0000ff}
+    ul.ul1 {list-style-type: disc}
+  </style>
+</head>
+<body>
+<p class="p1"><b>INSTRUCTIONS FOR DAY 3 (MASTANI, 2014), EXERCISE 1</b></p>
+<p class="p2"><br></p>
+<p class="p1">Note that the following color code has been used in this instruction sheet:</p>
+<p class="p3">Broad headings are in red.</p>
+<p class="p4">File names are in magenta.</p>
+<p class="p5">Phrases to be typed into the command line are in blue.</p>
+<p class="p6">Input parameters are in dark green.</p>
+<p class="p7"><br></p>
+<p class="p3">In this exercise, you will perform simple relax calculation for a molecule.</p>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><span class="s1">STEP 1: Go to the directory </span><span class="s2">~/hands_on/week1/day3/exercise1</span><span class="s3"><span class="Apple-converted-space"> </span></span></li>
+</ul>
+<p class="p8">You will see the following files:</p>
+<p class="p9">day3_exercise1_instructions.html <span class="s3">this file!</span></p>
+<p class="p8"><span class="s4">c2h2.scf.in </span>this is a sample scf input file, for an acetylene molecule containing two C and two H atoms .</p>
+<p class="p8"><span class="s4">c2h2.bfgs.in</span> this is a sample input file for relax calculation .</p>
+<p class="p10"><br></p>
+<p class="p10"><br></p>
+<p class="p10"><br></p>
+<ul class="ul1">
+  <li class="li3"><span class="s1">STEP 2: Open and read the sample file </span><span class="s4">c2h2.scf.in</span></li>
+</ul>
+<p class="p11"><br></p>
+<ul class="ul1">
+  <li class="li1">Note that in the <span class="s5">namelist</span> <span class="s6">&amp;control</span>, we have specified <span class="s6">tprnfor = .true. </span><span class="s5">to print the forces on each atom.</span><span class="s6"><span class="Apple-converted-space"> </span></span></li>
+  <li class="li1"><span class="s6">K_POINTS</span> is set as gamma. Is it sufficient?</li>
+  <li class="li1">Open the structure in xcrysden. Acetylene is a linear molecule, but here we have a structure that is not in its ground state..</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><span class="s1">STEP 3: Run an scf calculation:</span></li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li1">Run the scf calculation<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<p class="p12">/usr/local/apps/espresso-5.1/bin/pw.x &lt; c2h2.scf.in &gt; c2h2.scf.out</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><span class="s1">STEP 4: Read the output, and answer the following questions:</span></li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li13">Check the forces on each atom (at the end of the output file).<span class="Apple-converted-space"> </span></li>
+  <li class="li13">What are the values of <span class="s7">Total force </span>and<span class="s7"> Total scf correction</span>? (you can use <span class="s7">grep</span><span class="s8"> </span>)</li>
+  <li class="li13">To visualize the forces, open <span class="s9">c2h2.scf.out </span>in xcrysden <span class="s10">(xcrysden --pwo<span class="Apple-converted-space">  </span></span><span class="s11">c2h2.scf.out)</span></li>
+  <li class="li13">Do you think the forces are large?</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><span class="s1">STEP 5: Now optimize the structure of the acetylene molecule</span></li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li13"><span class="s8">Open </span><span class="s9">c2h2.bfgs.in </span>file. Notice that <span class="s8">in the </span>namelist<span class="s9"> </span><span class="s7">&amp;control</span>,<span class="s7"> calculation = “relax” </span>and<span class="s7"> forc_conv_thr = 1.0D-3 Ry/bohr </span>have been specified for the structural optimization. The convergence criteria for the ionic minimization will be satisfied when all the of all forces are smaller than<span class="s7"> forc_conv_thr.</span></li>
+</ul>
+<ul class="ul1">
+  <li class="li1">Also a new namelist <span class="s12">“</span><span class="s6">ions</span><span class="s12">”</span> has been added.</li>
+  <li class="li1">Note that in the card <span class="s6">ATOMIC_POSITION</span>, 3 more columns have been added for each atomic species. These columns can take values either <span class="s6">0</span> or <span class="s6">1</span>. The values of these three columns denote the allowed relaxation of a atom along x, y and z direction, respectively. If one wants to fix the position of a atom along x direaction and allow it to relax along y and z directions, then the values can be specified by <span class="s6">0 1 1</span>.<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><span class="s1">STEP 6: Run the relax calculation:</span><span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li1">To get the optimized structure, run the following command, <br>
+<span class="s13">/usr/local/apps/espresso-5.1</span><span class="s14">/bin/pw.x &lt; c2h2.bfgs.in &gt; c2h2.bfgs.out &amp;<span class="Apple-converted-space"> </span></span></li>
+</ul>
+<p class="p11"><br></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><span class="s1">STEP 7: Read the output, and answer the following questions:</span></li>
+  <li class="li13">Now check the total energy changes. Do<span class="s8"><br>
+</span><span class="s9">grep </span><span class="s7">! </span><span class="s9">c2h2.bfgs.out</span><span class="s7"> </span><span class="s9">| nl</span></li>
+  <li class="li13">you can also check the value of the forces at each bfgs step. Do, <span class="s8"><br>
+</span><span class="s9">grep</span><span class="s7"> "Total force" </span><span class="s9">c2h2.bfgs.out | nl</span></li>
+  <li class="li13">Are the forces smaller than the specified threshold values at convergence?</li>
+  <li class="li13">Use<span class="s6"> XCrySDen</span> to visualize the dynamics: <span class="s8"><br>
+</span><span class="s9">xcrysden --pwo c2h2.bfgs.out </span><span class="s8"><br>
+</span>(remember to select “reduce dimension to 0D” and “Display All Coordinates as Animation”; type “f” to visualize the forces)<span class="s8"><br>
+</span>Do you see the forces to vanish at convergence?</li>
+</ul>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

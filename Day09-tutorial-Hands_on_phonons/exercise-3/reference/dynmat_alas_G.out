@@ -1,0 +1,20 @@
+
+     Reading Dynamical Matrix from file alas.dynmat_G
+     ...Force constants read
+     ...epsilon and Z* read
+
+     Polarizability (A^3 units)
+     multiply by 0.267264 for Clausius-Mossotti correction
+        28.796881    0.000000    0.000000
+         0.000000   28.796881    0.000000
+         0.000000    0.000000   28.796881
+
+     IR cross sections are in (D/A)^2/amu units
+
+#  mode   [cm-1]     [THz]       IR
+    1      0.00    0.0000    0.0000
+    2      0.00    0.0000    0.0000
+    3      0.00    0.0000    0.0000
+    4    357.40   10.7144    5.4432
+    5    357.40   10.7144    5.4432
+    6    395.39   11.8536    5.4432

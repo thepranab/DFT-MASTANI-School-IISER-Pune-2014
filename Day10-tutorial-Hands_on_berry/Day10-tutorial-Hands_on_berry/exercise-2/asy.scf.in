@@ -1,0 +1,39 @@
+&control
+    calculation = 'scf'
+    restart_mode='from_scratch',
+    prefix='asymm',
+    tstress = .true.
+    tprnfor = .true.
+    pseudo_dir = '../../pseudo',
+    outdir='tmp-asy'
+ /
+ &system
+    ibrav=  6,  nat=  5, ntyp= 3,celldm(1)=7.47058, celldm(3)=1.02355
+    ecutwfc =30.0, ecutrho=240.0,
+    occupations='fixed',nbnd=20
+ /
+ &electrons
+    mixing_mode = 'plain'
+    mixing_beta = 0.7
+    conv_thr =  1.0d-8
+ /
+ &ions
+ /
+ &cell
+ /
+
+ATOMIC_SPECIES
+Ba    137.34	Ba.pbe-nsp-van.UPF 
+Ti    47.90     Ti.pbe-sp-van_ak.UPF
+O     16.0      O.pbe-rrkjus.UPF
+
+ATOMIC_POSITIONS (crystal)
+Ba       0.000000000   0.000000000   0.020604613
+Ti       0.500000000   0.500000000   0.530311403
+O        0.500000000   0.500000000  -0.015428482
+O        0.500000000   0.000000000   0.492256232
+O        0.000000000   0.500000000   0.492256232
+
+K_POINTS {automatic}
+5 5 5  0 0 0 
+

@@ -1,0 +1,172 @@
+#!/bin/sh
+
+PSEUDO_DIR='../../Pseudo/'
+BIN_DIR='/usr/local/apps/espresso-5.1/bin/'
+RUN_DIR='Restart_lanczos_run'
+TMP_DIR='./'
+
+PARA_PREFIX='mpirun -np 2'
+PARA_POSTFIX=' -nk 1 -nd 1 -nb 1 -nt 1 '
+
+
+PW_COMMAND="$PARA_PREFIX $BIN_DIR/pw.x $PARA_POSTFIX"
+PW4GWW_COMMAND="$PARA_PREFIX $BIN_DIR/pw4gww.x $PARA_POSTFIX"
+GWW_COMMAND="$PARA_PREFIX $BIN_DIR/gww.x $PARA_POSTFIX"
+
+for DIR in "$RUN_DIR" ; do
+    if test ! -d $DIR ; then
+        mkdir $DIR
+    fi
+done
+
+cd $RUN_DIR
+
+# check whether echo has the -e option
+if test "`echo -e`" = "-e" ; then ECHO=echo ; else ECHO="echo -e" ; fi
+
+$ECHO
+$ECHO 'Methane: scf run, gamma point'
+
+    # self-consistent calculation
+cat > methane_scf.in << EOF
+&control
+    calculation = 'scf',
+    restart_mode='from_scratch',
+    prefix='ch4',
+    tprnfor = .true.,
+    pseudo_dir = '$PSEUDO_DIR/',
+    outdir='$TMP_DIR/'
+ /
+ &system
+    ibrav=  1,
+    celldm(1) =15.0,
+    nat=5,
+    ntyp= 2,
+    ecutwfc =40.0,
+    nbnd=5
+ /
+ &electrons
+    diagonalization='cg'
+    mixing_beta = 0.5,
+    conv_thr =  1.0d-8
+ /
+ATOMIC_SPECIES
+ H  1.0   H.pz-vbc.UPF
+ C  12.0  C.pz-vbc.UPF
+ATOMIC_POSITIONS {bohr}
+H        1.198204546   1.198204546   1.198204546
+H       -1.198204546  -1.198204546   1.198204546
+H        1.198204546  -1.198204546  -1.198204546
+H       -1.198204546   1.198204546  -1.198204546
+C        0.000000000   0.000000000   0.000000000
+
+EOF
+$ECHO "  running the scf calculation for methane...\c"
+$PW_COMMAND < methane_scf.in > methane_scf.out
+$ECHO " done"
+
+
+cat > methane_pw4gww.in << EOF
+&inputpw4gww    
+    prefix='ch4'
+    num_nbndv(1)=4
+    num_nbnds=5
+    l_truncated_coulomb=.true.
+    truncation_radius=7.5d0
+    numw_prod= 50
+    pmat_cutoff= 3
+    pseudo_dir = '$PSEUDO_DIR/',
+    outdir='$TMP_DIR/'
+    n_pola_lanczos=400
+    s_pola_lanczos=0.5d0
+    nsteps_lanczos_pola=20
+    n_self_lanczos= 600 
+    s_self_lanczos=1d-12
+    nsteps_lanczos_self= 5
+/
+
+EOF
+$ECHO "  running the pw4gww calculation for methane...\c"
+$PW4GWW_COMMAND < methane_pw4gww.in > methane_pw4gww.out_nsteps2
+$ECHO " done"
+
+
+    cat > methane_gww.in << EOF
+&inputgww
+ggwin%prefix='ch4'
+ggwin%max_i=5,
+ggwin%i_min=1
+ggwin%i_max=5
+ggwin%omega=20
+ggwin%n=118,
+ggwin%tau=11.8
+ggwin%grid_freq=5
+ggwin%second_grid_i=3
+ggwin%second_grid_n=10
+ggwin%omega_fit=20
+ggwin%n_grid_fit=240
+ggwin%n_fit=120,
+ggwin%n_multipoles=2
+ggwin%l_truncated_coulomb=.true.
+ggwin%outdir='$TMP_DIR'
+/
+
+EOF
+    $ECHO "  running the gww calculation for methane...\c"
+    $GWW_COMMAND < methane_gww.in > methane_gww.out_nsteps2
+    $ECHO " done"
+
+for nsteps in  10 15 20 25 30; do
+cat > methane_pw4gww.in << EOF
+&inputpw4gww    
+    prefix='ch4'
+    num_nbndv(1)=4
+    num_nbnds=5
+    l_truncated_coulomb=.true.
+    truncation_radius=7.5d0
+    numw_prod= 50
+    pmat_cutoff= 3
+    pseudo_dir = '$PSEUDO_DIR/',
+    outdir='$TMP_DIR/'
+    n_pola_lanczos=400
+    s_pola_lanczos=0.5d0
+    nsteps_lanczos_pola=20
+    n_self_lanczos= 600 
+    s_self_lanczos=1d-12
+    nsteps_lanczos_self= $nsteps
+    restart_gww=2
+    lanczos_restart=3
+/
+
+EOF
+$ECHO "  running the pw4gww calculation for methane...\c"
+$PW4GWW_COMMAND < methane_pw4gww.in > methane_pw4gww.out_nsteps${nsteps}
+$ECHO " done"
+
+
+    cat > methane_gww.in << EOF
+&inputgww
+ggwin%prefix='ch4'
+ggwin%max_i=5,
+ggwin%i_min=1
+ggwin%i_max=5
+ggwin%omega=20
+ggwin%n=118,
+ggwin%tau=11.8
+ggwin%grid_freq=5
+ggwin%second_grid_i=3
+ggwin%second_grid_n=10
+ggwin%omega_fit=20
+ggwin%n_grid_fit=240
+ggwin%n_fit=120,
+ggwin%starting_point=6
+ggwin%ending_point=7
+/
+
+EOF
+    $ECHO "  running the gww calculation for methane...\c"
+    $GWW_COMMAND < methane_gww.in > methane_gww.out_nsteps${nsteps}
+    $ECHO " done"
+
+
+done

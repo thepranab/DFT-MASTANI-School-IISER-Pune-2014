@@ -1,0 +1,75 @@
+# Instructions for hands-on DFT+U session
+# Burak Himmetoglu
+# University of Minnesota
+# e-mail: himm0013@umn.edu
+###########################################
+
+All examples run in parallel, therefore make sure that QE is compiled
+for parallel execution. For PSU machines, lionxi cluster is enabled 
+for this purpose. To use QE, please type
+
+module load qe/5.0
+
+in the terminal. This will also load the necessary intel and mkl modules.
+The mkl module is also needed for U calculation examples, in order to 
+link resp_mat.f90 to blas libraries. 
+
+All examples contain folders "Reference" that has results from
+previously finished calculations. Use them to compare with your own 
+results. 
+
+################
+Example 1: FeO
+################
+
+All the scripts are self-explanatory. 
+
+1. run_FeO_NO_U performs the GGA calculation for FeO and also the projected DOS.
+2. run_FeO_U performs the GGA+U calculation for FeO and the projected DOS. This 
+calculation yields a metallic state.
+3. run_FeO_U2 performs the GGA+U calculation and the projected DOS. In this case,
+the eigenvalues of the occupation matrices are interrupted after the 1st iteration
+to "suggest" the code the right local energy minimum. This is performed by the
+variable starting_ns_eigenvalue.
+
+################
+Example 2: NiO
+################
+ 
+This example deals with the U calculation for NiO. 
+
+The script run_NiO_r16_ucalc performs the supercell calculations and 
+the perturbed runs using Hubbard_alpha. The results are written in
+the file results_NiO which are analysed by the scripts in folder Ucalc.
+
+When you go into the folder Ucalc, make sure that the scripts 
+comp_resp_mat.j and grepnalfa_nio_r16 are executable. If not, please
+type:
+
+chmod +x grepnalfa_nio_r16
+chmod +x comp_resp_mat.j
+
+in order to make them executable. Make sure that the mkl libraries are installed. 
+Check this by typing:
+
+module list
+
+If you do not see mkl, please type
+
+module load qe/5.0
+
+This will load QE, as well as the required mkl libraries for PSU machines. If you 
+are running the calculation at some other machine, make sure that you have some
+blas library on your machine. To link to the correct library, please edit
+comp_resp_mat.j.
+
+The U calculation is simply performed by typing ./ucalc_nio_r16.j, which
+incorporates all the other scripts within the folder Ucalc.
+
+Detailed description of this calculation are provided in the slides. 
+
+################
+Example 3: Cu2O
+################
+
+This example is left as an exercise. The solutions are provided in the Reference folders.

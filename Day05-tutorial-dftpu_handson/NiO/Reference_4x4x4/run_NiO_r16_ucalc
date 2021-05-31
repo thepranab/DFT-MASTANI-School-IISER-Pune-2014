@@ -1,0 +1,334 @@
+#!/bin/bash
+####################################################################
+#
+#
+#
+cp ../environment_variables ./
+source ./environment_variables
+
+export results=./results_NiO
+export temp=./temp
+export temp1=./temp1
+
+if [ ! -d $results ]; then
+   mkdir  $results
+fi
+
+if [ ! -d $temp ]; then
+   mkdir  $temp
+fi
+
+if [ ! -d $temp1 ]; then
+   mkdir  $temp1
+fi
+
+rm -r $temp/* $temp1/*
+
+#
+# clean temporary direactories
+#
+# self-consistent calculation
+#
+
+cat > nio.scf.in << EOF
+ &control
+    calculation='scf'
+    restart_mode='from_scratch',
+    prefix='nio',
+    pseudo_dir = '$PSEUDO_DIR'
+    outdir='$temp',
+ /
+ &system
+    ibrav=0, 
+    celldm(1)= 7.9,
+    nat= 16, 
+    ntyp=4,
+    nspin = 2,  
+    starting_magnetization(1)=0.5,
+    starting_magnetization(2)=0.5,
+    starting_magnetization(3)=-0.5,
+    ecutwfc=30.0,
+    ecutrho=300.0,
+    occupations ='smearing',
+    smearing ='gauss',
+    degauss = 0.01, 
+    lda_plus_u = .true.,
+    U_projection_type = 'atomic',
+    Hubbard_U(1) = 1.d-10
+    Hubbard_U(2) = 1.d-10
+    Hubbard_U(3) = 1.d-10
+    Hubbard_U(4) = 1.d-10
+ /
+ &electrons
+    diagonalization='david',
+    mixing_beta = 0.3,
+    conv_thr = 1.0d-8,
+ /
+ATOMIC_SPECIES
+ Ni1  1.0   Ni.pbe-nd-rrkjus.UPF
+ Ni2  1.0   Ni.pbe-nd-rrkjus.UPF
+ Ni3  1.0   Ni.pbe-nd-rrkjus.UPF
+ O1   1.0   O.pbe-rrkjus.UPF
+ATOMIC_POSITIONS {crystal}
+Ni1  0.d0  0.d0  0.d0
+Ni2  0.5d0 0.5d0 0.d0
+Ni2  0.5d0 0.d0  0.5d0
+Ni2  0.d0  0.5d0 0.5d0
+Ni3  0.5d0 0.d0  0.d0
+Ni3  0.d0  0.5d0 0.d0
+Ni3  0.d0  0.d0  0.5d0
+Ni3  0.5d0 0.5d0 0.5d0
+O1   -0.25d0  0.25d0  0.25d0
+O1    0.25d0  0.25d0  0.25d0
+O1   -0.25d0  0.25d0  0.75d0
+O1   -0.25d0  0.75d0  0.25d0
+O1    0.25d0  0.75d0  0.25d0
+O1    0.25d0  0.25d0  0.75d0
+O1   -0.25d0  0.75d0  0.75d0
+O1    0.25d0  0.75d0  0.75d0
+K_POINTS {automatic}
+4 4 4 0 0 0
+CELL_PARAMETERS
+1.0 1.0 0.0
+1.0 0.0 1.0
+0.0 1.0 1.0
+EOF
+
+mpirun -np 4 $PW_COMMAND -npool 4 < nio.scf.in  > $results/nio_1.scf.out
+
+# read the convergence treshold from the scf run
+ethr=`grep ethr $results/nio_1.scf.out |tail -1 |awk '{print $3}'`
+
+# back-up the saved wavefunctions and potential to temp1
+rm -r $temp1/*
+cp -r $temp/* $temp1/
+# use temp as the work space
+
+# perturb the occupations of the atom at the origin
+for alpha in -0.15 0.15 -0.07 0.07 0.0
+do
+
+rm -r $temp/*
+cp -r $temp1/* $temp/
+
+cat > nio.scf.in << EOF
+ &control
+    calculation='scf'
+    restart_mode='from_scratch',
+    prefix='nio',
+    pseudo_dir = '$PSEUDO_DIR'
+    outdir='$temp/',
+ /
+ &system
+    ibrav=0, 
+    celldm(1)=7.9,
+    nat=16, 
+    ntyp=4,
+    nspin=2,  
+    starting_magnetization(1)=0.5,
+    starting_magnetization(2)=0.5,
+    starting_magnetization(3)=-0.5,
+    ecutwfc=30.0,
+    ecutrho=300.0,
+    occupations ='smearing',
+    smearing ='gauss',
+    degauss = 0.01, 
+    lda_plus_u = .true.,
+    U_projection_type = 'atomic',
+    Hubbard_U(1) = 1.d-10
+    Hubbard_alpha(1) = $alpha
+    Hubbard_U(2) = 1.d-10
+    Hubbard_U(3) = 1.d-10
+    Hubbard_U(4) = 1.d-10
+ /
+ &electrons
+    diagonalization='david',
+    mixing_beta = 0.3,
+    conv_thr = 1.0d-8,
+    startingwfc = 'file',
+    startingpot = 'file',
+    diago_thr_init = $ethr
+ /
+ATOMIC_SPECIES
+ Ni1  1.0   Ni.pbe-nd-rrkjus.UPF
+ Ni2  1.0   Ni.pbe-nd-rrkjus.UPF
+ Ni3  1.0   Ni.pbe-nd-rrkjus.UPF
+ O1   1.0   O.pbe-rrkjus.UPF
+ATOMIC_POSITIONS {crystal}
+Ni1  0.d0  0.d0  0.d0
+Ni2  0.5d0 0.5d0 0.d0
+Ni2  0.5d0 0.d0  0.5d0
+Ni2  0.d0  0.5d0 0.5d0
+Ni3  0.5d0 0.d0  0.d0
+Ni3  0.d0  0.5d0 0.d0
+Ni3  0.d0  0.d0  0.5d0
+Ni3  0.5d0 0.5d0 0.5d0
+O1   -0.25d0  0.25d0  0.25d0
+O1   0.25d0  0.25d0  0.25d0
+O1   -0.25d0  0.25d0  0.75d0
+O1   -0.25d0  0.75d0  0.25d0
+O1    0.25d0  0.75d0  0.25d0
+O1    0.25d0  0.25d0  0.75d0
+O1   -0.25d0  0.75d0  0.75d0
+O1    0.25d0  0.75d0  0.75d0
+K_POINTS {automatic}
+4 4 4 0 0 0
+CELL_PARAMETERS
+1.0 1.0 0.0
+1.0 0.0 1.0
+0.0 1.0 1.0
+EOF
+
+mpirun -np 4 $PW_COMMAND -npool 4 < nio.scf.in  > $results/ni.$alpha.out
+
+done
+
+# Now shift the coordinatesso that oxygen is placed at the origin
+cat > nio.scf.in << EOF
+ &control
+    calculation='scf'
+    restart_mode='from_scratch',
+    prefix='nio',
+    pseudo_dir = '$PSEUDO_DIR'
+    outdir='$temp/',
+ /
+ &system
+    ibrav= 0, celldm(1)= 7.9,
+    nat= 16, ntyp=4,
+    nspin = 2,  
+    starting_magnetization(1)=0.5,
+    starting_magnetization(2)=-0.5,
+    ecutwfc=30.0,
+    ecutrho=300.0,
+    occupations ='smearing',
+    smearing ='gauss',
+    degauss = 0.01, 
+    lda_plus_u = .true.,
+    U_projection_type = 'atomic',
+    Hubbard_U(1) = 1.d-10
+    Hubbard_U(2) = 1.d-10
+    Hubbard_U(3) = 1.d-10
+    Hubbard_U(4) = 1.d-10
+ /
+ &electrons
+    diagonalization='david',
+    mixing_beta = 0.3,
+    conv_thr = 1.0d-8,
+ /
+ATOMIC_SPECIES
+ Ni1  1.0   Ni.pbe-nd-rrkjus.UPF
+ Ni2  1.0   Ni.pbe-nd-rrkjus.UPF
+ O1   1.0   O.pbe-rrkjus.UPF
+ O2   1.0   O.pbe-rrkjus.UPF
+ATOMIC_POSITIONS {crystal}
+Ni1  0.25d0 -0.25d0 -0.25d0
+Ni1  0.75d0  0.25d0 -0.25d0
+Ni1  0.75d0 -0.25d0  0.25d0
+Ni1  0.25d0  0.25d0  0.25d0
+Ni2  0.75d0 -0.25d0 -0.25d0
+Ni2  0.25d0  0.25d0 -0.25d0
+Ni2  0.25d0 -0.25d0  0.25d0
+Ni2  0.75d0 0.25d0 0.25d0
+O1   0.d0  0.d0  0.d0
+O2   0.5d  0.d0  0.d0
+O2   0.d0  0.d0  0.5d0
+O2   0.d0  0.5d  0.d0
+O2   0.5d  0.5d  0.d0
+O2   0.5d  0.d0  0.5d0
+O2   0.d0  0.5d  0.5d0
+O2   0.5d  0.5d  0.5d0
+K_POINTS {automatic}
+4 4 4 0 0 0
+CELL_PARAMETERS
+1.0 1.0 0.0
+1.0 0.0 1.0
+0.0 1.0 1.0
+EOF
+
+mpirun -np 4 $PW_COMMAND -npool 4 < nio.scf.in  > $results/nio_2.scf.out
+
+# read the convergence treshold from the scf run
+ethr=`grep ethr $results/nio_2.scf.out |tail -1 |awk '{print $3}'`
+
+# back-up the saved wavefunctions and potential to temp1
+rm -r $temp1/*
+cp -r $temp/* $temp1/
+# use temp as the work space
+
+# perturb the occupations of the atom at the origin
+for alpha in -0.15 0.15 -0.07 0.07 0.0
+do
+
+rm -r $temp/*
+cp -r $temp1/* $temp/
+
+cat > nio.scf.in << EOF
+ &control
+    calculation='scf'
+    restart_mode='from_scratch',
+    prefix='nio',
+    pseudo_dir = '$PSEUDO_DIR'
+    outdir='$temp/',
+ /
+ &system
+    ibrav=0, 
+    celldm(1)= 7.9,
+    nat= 16,
+    ntyp=4,
+    nspin = 2,  
+    starting_magnetization(1)=0.5,
+    starting_magnetization(2)=-0.5,
+    ecutwfc=30.0,
+    ecutrho=300.0,
+    occupations ='smearing',
+    smearing ='gauss',
+    degauss = 0.01, 
+    lda_plus_u = .true.,
+    U_projection_type = 'atomic',
+    Hubbard_U(1) = 1.d-10
+    Hubbard_U(2) = 1.d-10
+    Hubbard_U(3) = 1.d-10
+    Hubbard_alpha(3) = $alpha
+    Hubbard_U(4) = 1.d-10
+ /
+ &electrons
+    diagonalization='david',
+    mixing_beta = 0.3,
+    conv_thr = 1.0d-8,
+    startingwfc = 'file',
+    startingpot = 'file',
+    diago_thr_init = $ethr
+ /
+ATOMIC_SPECIES
+ Ni1  1.0   Ni.pbe-nd-rrkjus.UPF
+ Ni2  1.0   Ni.pbe-nd-rrkjus.UPF
+ O1   1.0   O.pbe-rrkjus.UPF
+ O2   1.0   O.pbe-rrkjus.UPF
+ATOMIC_POSITIONS {crystal}
+Ni1  0.25d0 -0.25d0 -0.25d0
+Ni1  0.75d0  0.25d0 -0.25d0
+Ni1  0.75d0 -0.25d0  0.25d0
+Ni1  0.25d0  0.25d0  0.25d0
+Ni2  0.75d0 -0.25d0 -0.25d0
+Ni2  0.25d0  0.25d0 -0.25d0
+Ni2  0.25d0 -0.25d0  0.25d0
+Ni2  0.75d0 0.25d0 0.25d0
+O1   0.d0  0.d0  0.d0
+O2   0.5d  0.d0  0.d0
+O2   0.d0  0.d0  0.5d0
+O2   0.d0  0.5d  0.d0
+O2   0.5d  0.5d  0.d0
+O2   0.5d  0.d0  0.5d0
+O2   0.d0  0.5d  0.5d0
+O2   0.5d  0.5d  0.5d0
+K_POINTS {automatic}
+4 4 4 0 0 0
+CELL_PARAMETERS
+1.0 1.0 0.0
+1.0 0.0 1.0
+0.0 1.0 1.0
+EOF
+
+mpirun -np 4 $PW_COMMAND -npool 4 < nio.scf.in  > $results/o.$alpha.out
+
+done

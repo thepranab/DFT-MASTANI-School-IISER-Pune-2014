@@ -1,0 +1,44 @@
+#!/bin/bash
+
+rm dn*da*
+rm file.nio.r16
+
+for at in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 
+do
+
+for con in -0.15 -0.07 0.0 0.07 0.15
+do
+
+sum1=`grep 'Tr' ni.$con.out |tail -16 | head -$at| tail -1| awk '{print $10}'`
+echo ' ' $con ' ' $sum1 >> dn.$at.da.1.dat
+
+sum1=`grep 'Tr' ni.$con.out |head -32| tail -16 | head -$at| tail -1| awk '{print $10}'`
+echo ' ' $con ' ' $sum1 >> dn0.$at.da.1.dat
+
+done
+
+echo  dn.$at.da.1.dat  dn0.$at.da.1.dat >> file.nio.r16
+
+done
+
+
+for at in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 
+do
+
+for con in -0.15 -0.07 0.0 0.07 0.15
+do
+
+sum1=`grep 'Tr' o.$con.out |tail -16 | head -$at| tail -1| awk '{print $10}'`
+echo ' ' $con ' ' $sum1 >> dn.$at.da.9.dat
+
+sum1=`grep 'Tr' o.$con.out |head -32| tail -16 | head -$at| tail -1| awk '{print $10}'`
+echo ' ' $con ' ' $sum1 >> dn0.$at.da.9.dat
+
+done
+
+echo  dn.$at.da.9.dat  dn0.$at.da.9.dat >> file.nio.r16
+
+done
+
+rm  ni*.out  o*.out
+

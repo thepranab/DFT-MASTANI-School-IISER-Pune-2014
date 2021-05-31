@@ -1,0 +1,11 @@
+ &input_mat 
+   ntyp = 1 
+   na(1) = 2 
+   nalfa = 7 
+   filepos = 'pos_sc1' 
+   back = 'neutral' 
+   filednda = 'file_sc1' 
+   n1 = 2 
+   n2 = 2 
+   n3 = 2 
+ &end 

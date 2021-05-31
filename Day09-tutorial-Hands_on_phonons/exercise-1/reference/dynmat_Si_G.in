@@ -1,0 +1,7 @@
+&input
+     fildyn='si.dynmat_G',
+     asr='simple',  
+     filout='dynmat.out',
+     filxsf='dynmat.axsf',
+/
+

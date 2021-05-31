@@ -1,0 +1,36 @@
+Note that to build the Cr.bcc.AF structure one has to use a simple cubic lattice with two atoms (atom 1 and atom 2) per unit cell having an opposite intial magnetization. 
+
+----------------------------------
+pw.alat.job : compute total energy and magnetization versus the lattice parameter for Cr.bcc.AF (pw.x)
+
+In this example one performs a series of scf calculation at various lattice parameters. 
+The bash script extract from the general output of pw.x the total anergy and magnetization of atom 1 (the magnetization of atom 2 is just the opposite).
+
+Using xmgrace plot the total energy  and the magnetization of atom 1 versus the lattice parameter.
+What is the magnetization at equilibrium? Does it compare well with the experimental value (0.6 muB)
+
+In fact the true magnetic structure of Cr is a Spin Density Wave which is never found as the most stable structure in DFT....
+
+---------------------------------
+pw.fm.job   : compute total energy and magnetization starting of Cr.bcc from a FM configuration (pw.x)
+
+In this example we perform an scf calculation of Cr.bcc but starting from an initial FM where atom 1 and atom 2 have the same initial magnetization.
+What is the final scf configuration?
+
+------------------------------------
+pw.cons.job : constrained (penalized) scf calculation where the magnetization of one of the Cr atom is constrained to its bulk value while the other one is constained to a range of  diffferent values
+
+In this example we use the penalization technique to impose a give value of the magnetization on different atoms of the system.
+This consists in adding a positive contribution to the DFT functional of the form lamda(m-mO)^2 on each atom.
+lambda is a positive and large number.
+
+In this example the magnetization of atom 1 is penalized to its (approximate) equilibrium value (around 1.1muB) while the magnetization of atom 2 is penalized for values ranging from from -1.4muB to 0muB.
+A large lambda factor (5Ry) is used since we wish to "explore" magnetic configurations very far from the equilibrium. 
+Plot the E(M2) curve.
+
+
+-----------------------------------------
+pw.test.job : a test case where the initial magnetization is assymetric +M1 -M2.
+
+
+In this "test" case we perform an scf calculation starting from an assymetric magnetization wher M1 is diffferent from M2. What is the final scf configuration?

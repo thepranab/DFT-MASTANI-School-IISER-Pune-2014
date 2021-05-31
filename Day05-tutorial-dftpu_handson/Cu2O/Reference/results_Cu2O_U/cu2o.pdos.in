@@ -1,0 +1,5 @@
+ &projwfc
+    outdir='temp'
+    prefix='cu2o'
+    DeltaE=0.1
+ /

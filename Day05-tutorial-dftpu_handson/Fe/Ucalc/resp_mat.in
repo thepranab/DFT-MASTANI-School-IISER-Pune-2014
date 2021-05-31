@@ -1,0 +1,11 @@
+ &input_mat 
+   ntyp = 1 
+   na(1) = 8 
+   nalfa = 5 
+   filepos = 'pos_bcc8' 
+   back = 'no' 
+   filednda = 'file_bcc8' 
+   n1 = 4 
+   n2 = 4 
+   n3 = 4 
+ &end 

@@ -1,0 +1,66 @@
+&control
+    calculation       = 'relax'
+    restart_mode      = 'from_scratch'
+    prefix            = 'SiO2-aQuartz'
+    tstress           = .false.
+    tprnfor           = .true.
+    pseudo_dir        = '../PP_LIBRARY/'
+    outdir            = './scratch/'
+    verbosity         = 'high'
+    etot_conv_thr     = 1e-7
+    forc_conv_thr     = 1e-6
+    nstep             = 5000
+    wf_collect        = .true.
+    max_seconds       = 84000
+/
+
+    a                 = 4.9127
+    c                 = 5.404608651
+
+&system
+    ibrav             = 4
+
+    a                 = 4.83875319577268749730
+    c                 = 5.33541658822096172256
+
+    nat               =  9
+    ntyp              =  2
+
+    ecutwfc           = 100
+/
+
+&electrons
+    diagonalization   = 'david'
+    mixing_mode       = 'plain'
+    mixing_beta       = 0.7
+    conv_thr          = 3e-10
+    electron_maxstep  = 999
+/
+&ions
+    trust_radius_ini  = 0.010
+    ion_dynamics      = 'bfgs'
+/
+&cell
+    cell_dynamics     = 'bfgs'
+    wmass             =  0.0001
+    press             =  0
+    cell_factor       =  1.2
+/
+
+ATOMIC_SPECIES
+Si 28.086  Si.pbe-n-nc.UPF
+O  15.9994 O.pbe-nc.UPF
+
+ATOMIC_POSITIONS crystal
+Si       0.460598376   0.000000000   0.666666667
+Si       0.000000000   0.460598376   0.333333333
+Si      -0.460598376  -0.460598376  -0.000000000
+O        0.407368025   0.282267633  -0.226766952
+O       -0.282267633   0.125100391   0.439899715
+O       -0.125100391  -0.407368025   0.106566382
+O        0.282267633   0.407368025   0.226766952
+O        0.125100391  -0.282267633  -0.439899715
+O       -0.407368025  -0.125100391  -0.106566382
+
+K_POINTS automatic
+ 2 2 2  3*0

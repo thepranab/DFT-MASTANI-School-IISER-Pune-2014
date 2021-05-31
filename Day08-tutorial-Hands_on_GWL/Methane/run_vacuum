@@ -1,0 +1,37 @@
+#!/bin/sh
+
+TMP_DIR='./tmp'
+BIN_DIR='/usr/local/apps/espresso-5.1/bin/'
+
+PARA_PREFIX='mpirun -np 2'
+
+PP_COMMAND="$PARA_PREFIX $BIN_DIR/pp.x"
+AVERAGE_COMMAND="$BIN_DIR/average.x"
+
+# check whether echo has the -e option
+if test "`echo -e`" = "-e" ; then ECHO=echo ; else ECHO="echo -e" ; fi
+
+cat > methane_pp.in << EOF
+&inputpp
+ prefix='ch4'
+ outdir= './tmp'
+ filplot='pot.dat'
+ plot_num=11
+/
+
+EOF
+$ECHO "  running the pp.x calculation for methane...\c"
+$PP_COMMAND < methane_pp.in > methane_pp.out
+$ECHO " done"
+
+cat > methane_average.in << EOF
+1
+pot.dat
+1.
+250
+3
+5.00000
+EOF
+$ECHO "  running average.x calculation for methane...\c"
+$AVERAGE_COMMAND < methane_average.in > methane_average_pot.dat
+$ECHO " done"

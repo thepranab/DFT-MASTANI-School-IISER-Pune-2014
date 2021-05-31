@@ -1,0 +1,26 @@
+#!/bin/bash
+
+export LANG=C
+
+for i in $* ; do
+
+  OUTPREFIX="`dirname $i`"/"`basename $i | sed 's/\.out//'`"
+
+awk '
+
+BEGIN {
+  outprefix = "'${OUTPREFIX}'"
+  outfile_IR = sprintf ( "%s-IR.dat", outprefix )
+  printf "" > outfile_IR
+} # BEGIN
+
+/mode/, /^$/ {
+  if ( NF != 4 ) { next }
+  print $2, $4 >> outfile_IR
+}
+
+' $i
+
+./broaden.x -width 10 -Xmin 0 -Xmax 1300 -f ${OUTPREFIX}-IR.dat -o ${OUTPREFIX}-IR-br.dat
+
+done

@@ -1,0 +1,31 @@
+ &CONTROL
+   calculation = 'scf' ,
+   prefix = 'c2h2'
+   restart_mode = 'from_scratch' ,
+   outdir = './tmp' ,
+   pseudo_dir = '../pseudo/'
+   tprnfor   = .true.
+ /
+ &SYSTEM
+   ibrav = 1,
+   celldm(1) = 12,
+   nat = 4, ntyp = 2,
+   ecutwfc = 25, ecutrho = 200,
+   nosym = .true. ,
+   occupations = 'smearing' ,
+   degauss = 0.005,
+ /
+ &ELECTRONS
+   conv_thr = 1.D-6,
+   mixing_beta = 0.5,
+ /
+ATOMIC_SPECIES
+    H    1.00000  H.pbe-rrkjus.UPF 
+    C   12.00000  C.pbe-rrkjus.UPF 
+ATOMIC_POSITIONS bohr 
+C      0.000000000    0.000000000    0.000000000
+C      2.100000000    0.000000000    0.000000000
+H     -1.600000000    0.400000000    0.000000000
+H      3.600000000   -0.400000000    0.000000000
+K_POINTS gamma 
+

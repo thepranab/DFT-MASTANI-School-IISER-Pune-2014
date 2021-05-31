@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1265.2">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; min-height: 14.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; color: #ff0000}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; color: #ff00ff}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; color: #0000ff}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; color: #008000}
+    p.p7 {margin: 0.0px 0.0px 0.0px 47.0px; font: 12.0px Times}
+    p.p8 {margin: 0.0px 0.0px 0.0px 47.0px; font: 12.0px Times; color: #ff00ff}
+    p.p9 {margin: 0.0px 0.0px 0.0px 75.8px; font: 12.0px Times; min-height: 14.0px}
+    p.p10 {margin: 0.0px 0.0px 0.0px 151.7px; font: 12.0px Times; min-height: 14.0px}
+    p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p12 {margin: 0.0px 0.0px 0.0px 75.8px; font: 12.0px Times}
+    p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; color: #b80047; min-height: 14.0px}
+    li.li1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times}
+    li.li3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; color: #ff0000}
+    li.li5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; color: #0000ff}
+    li.li14 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; color: #b80047}
+    span.s1 {color: #000000}
+    span.s2 {text-decoration: underline}
+    span.s3 {text-decoration: underline ; color: #ff00ff}
+    span.s4 {color: #ff00ff}
+    span.s5 {color: #008000}
+    span.s6 {color: #0433ff}
+    ul.ul1 {list-style-type: disc}
+  </style>
+</head>
+<body>
+<p class="p1"><b>INSTRUCTIONS FOR DAY 2 (MASTANI 2014), EXERCISE 1</b></p>
+<p class="p2"><br></p>
+<p class="p1">Note that the following color code has been used in this instruction sheet:</p>
+<p class="p3">Broad headings are in red.</p>
+<p class="p4">File names are in magenta.</p>
+<p class="p5">Phrases to be typed into the command line are in blue.</p>
+<p class="p6">Input parameters are in dark green.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p3">This exercise is meant as an introduction to how to perform simple scf calculations using the pw package of Quantum ESPRESSO. You will perform calculations on Al <span class="s1">(a metal).</span></p>
+<p class="p2"><br></p>
+<p class="p3">First, you will first perform simple scf (self-consistent field) calculations on aluminium.</p>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><span class="s2">STEP 1: Go to the directory </span><span class="s3">~/hands_on/week1/day2/exercise1</span><span class="s1"><span class="Apple-converted-space"> </span></span></li>
+</ul>
+<p class="p7">You will see the following files:</p>
+<p class="p8">day2_exercise1_instructions.html <span class="s1">this file!</span></p>
+<p class="p7"><span class="s4">Al.sample.in </span>this is a sample input file, for a primitive Al cell.</p>
+<p class="p7"><span class="s4">Al.sample.sh </span>this is a sample shell script that you can use (optionally) to run a series of calculations on Al.</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><span class="s2">STEP 2: Open and read the sample file</span> <span class="s4">Al.sample.in</span></li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li1">Compared to your input files for Si (day 1, exercise 1) there are two main differences:<br>
+(i) Now <span class="s5">nat</span> = 1 instead of <span class="s5">nat</span> = 2, and accordingly there is only one Al atom at 0.0 0.0 0.0<br>
+(ii) There are additional lines, saying that the occupation should be smeared, which type of smearing to use, and what value of <span class="s5">degauss</span> (smearing width) to use.<br>
+Note that now we have set <span class="s5">verbosity = 'high' </span>in the <span class="s5">&amp;control</span> namelist ; so that the code wll print out occupation numbers, etc.</li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><span class="s2">STEP 3: Use Xcrysden to view the structure in the sample file:</span></li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li5">xcrysden --pwi Al.sample.in &amp;</li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><span class="s2">STEP 4: Run an scf calculation:</span></li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li5"><b></b>/usr/local/apps/espresso-5.1/bin/pw.x &lt; Al.sample.in &gt; Al.sample.out</li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><span class="s2">STEP 5: Read the output, and answer the following questions:</span></li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li1">How many bands were computed? How does this compare with the number of electrons?</li>
+  <li class="li1">What is the Fermi energy?<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><span class="s2">STEP 6: Now do convergence tests with respect to plane-wave cut-off:</span></li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li1">In principle, you should now run a series of calculations with different values of <span class="s5">ecutwfc</span> (as you did for Si) and see at what value of <span class="s5">ecutwfc </span>your total energy has converged. However, to save time, let us assume that this has been done. Keep working with <span class="s5">ecutwfc=12</span>.</li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><span class="s2">STEP 7: Now do convergence tests with respect to Brillouin zone sampling and smearing width:</span></li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li1">We will simultaneously decide what k-point mesh (values of <span class="s5">nk1, nk2, nk3</span>) and the value of the smearing width (<span class="s5">degauss</span>) to use. For simplicity, let us assume now that we will only use the Marzari-Vanderbilt smearing.</li>
+</ul>
+<p class="p9"><br></p>
+<ul class="ul1">
+  <li class="li1">Loop over values of <span class="s5">nk1, nk2, nk3</span> = 6 6 6, 8 8 8, 12 12 12, 16 16 16</li>
+  <li class="li1">For each of these k-point meshes, loop over <span class="s5">degauss</span> ranging from 0.02 to 0.10 (at intervals chosen by you).</li>
+  <li class="li1">Make <span class="s4">input files</span> of the form <span class="s4">Al.degauss.*_kdiv.*.in</span> (inserting the appropriate values of <span class="s5">degauss</span> and <span class="s5">nk</span>). In order to do this, you can either edit your input files manually, or use the shell script <span class="s4">Al.sample.sh </span>(If doing the latter, read the shell script carefully and see whether you need to insert additional values or lines.</li>
+</ul>
+<p class="p10"><br></p>
+<ul class="ul1">
+  <li class="li1">Run pw.x for each value of <span class="s5">nk </span>and <span class="s5">degauss</span>, either using the shell script or a command of the form<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li5"><b></b><span class="s6">/usr/local/apps/espresso-5.1/</span>bin/pw.x &lt; Al.degauss.&lt;val&gt;_kdiv.&lt;val&gt;.in &gt; Al_degauss.&lt;val&gt;_kdiv.&lt;val&gt;.out<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<p class="p11">(of course, you should substitute the appropriate values).</p>
+<p class="p9"><br></p>
+<ul class="ul1">
+  <li class="li1">Plot a graph showing how the total energy varies with the number of k-points and the smearing width, using a plotting program of your choice.<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p12">The 'true' converged result is obtained in the limit of zero smearing and an infinite number of k-points.</p>
+<p class="p12">Based upon this, decide what values of <span class="s5">nk1=nk2=nk3</span> and <span class="s5">degauss</span> you consider satisfactory.</p>
+<p class="p12">(Note: you will have to achieve some sort of compromise between accuracy and computational time!)</p>
+<p class="p2"><br></p>
+<p class="p13"><br></p>
+<ul class="ul1">
+  <li class="li14">Stuff for you to do later on (or you can do it now if you have the time):</li>
+</ul>
+<p class="p9"><br></p>
+<ul class="ul1">
+  <li class="li3"><span class="s2">Obtain the equilibrium lattice constant of Al:</span></li>
+</ul>
+<ul class="ul1">
+  <li class="li1">Proceed as you did for Si, look for a lattice constant that lies in the range of 7.0 to 8.0 bohr.</li>
+</ul>
+<p class="p9"><br></p>
+<p class="p2"><br></p>
+<p class="p9"><br></p>
+<p class="p9"><br></p>
+<p class="p2"><br></p>
+</body>
+</html>

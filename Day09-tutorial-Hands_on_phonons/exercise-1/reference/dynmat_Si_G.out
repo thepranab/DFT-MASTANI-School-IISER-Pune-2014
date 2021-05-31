@@ -1,0 +1,21 @@
+
+     Reading Dynamical Matrix from file si.dynmat_G
+     ...Force constants read
+     ...epsilon and Z* read
+     A direction for q was not specified:TO-LO splitting will be absent
+
+     Polarizability (A^3 units)
+     multiply by 0.201182 for Clausius-Mossotti correction
+        38.892663    0.000000    0.000000
+         0.000000   38.892663    0.000000
+         0.000000    0.000000   38.892663
+
+     IR cross sections are in (D/A)^2/amu units
+
+#  mode   [cm-1]     [THz]       IR
+    1      0.00    0.0000    0.0000
+    2      0.00    0.0000    0.0000
+    3      0.00    0.0000    0.0000
+    4    499.94   14.9877    0.0000
+    5    499.94   14.9877    0.0000
+    6    499.94   14.9877    0.0000

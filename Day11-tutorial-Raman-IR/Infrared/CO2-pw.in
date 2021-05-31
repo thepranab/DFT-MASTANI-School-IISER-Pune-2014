@@ -1,0 +1,35 @@
+&CONTROL
+  calculation  = "relax"
+  prefix       = "CO2"
+  pseudo_dir   = "../PP_LIBRARY/"
+  outdir       = "./scratch/"
+/
+&SYSTEM
+  ibrav        = 1
+  a            = 8.0
+
+  nat          = 3
+  ntyp         = 2
+
+  ecutwfc      = 120
+/
+
+&ELECTRONS
+  conv_thr     = 1e-9
+  mixing_beta  = 0.7
+/
+
+&IONS
+/
+
+ATOMIC_SPECIES
+  C 12.0110  C.pbe-tm-gipaw.UPF
+  O 15.9994  O.pbe-tm-gipaw.UPF
+
+ATOMIC_POSITIONS (angstrom)
+C        4.000000000   4.000000000   4.000000000
+O        3.312617974   3.312617974   3.312617974
+O        4.687382026   4.687382026   4.687382026
+
+K_POINTS (automatic)
+ 1 1 1  0 0 0

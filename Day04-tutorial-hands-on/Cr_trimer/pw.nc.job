@@ -1,0 +1,73 @@
+#!/bin/sh
+####################################################################
+# set the needed environment variables
+. ../environment_variables
+
+####################################################################
+# define some QE variables (do not change)
+#pseudo=pbe-nd-rrkjus
+pseudo=pbe-rrkjus
+one=1
+two=2
+three=3
+name=Cr
+struct=trimer.nc
+lattice_const=2.50
+
+####################################################################
+# define some QE variables to play with
+nK=1
+degauss=0.01
+
+
+mkdir results.nc
+
+cd results.nc
+
+\rm -f $name.$struct.scf.out
+
+# scf calculation
+cat >  $name.$struct.scf.in << EOF
+ &control
+    pseudo_dir = '$PSEUDO_DIR/',
+    outdir='$TMP_DIR/'
+    prefix='$name.$struct'
+ /
+ &system
+    ibrav = 0, a =$lattice_const, nat= 3, ntyp= 3,
+    noncolin = .true.,   
+    ecutwfc = 35, ecutrho = 350.0,
+    starting_magnetization(1)=0.3,
+    starting_magnetization(2)=0.3,  
+    starting_magnetization(3)=0.3, 
+    angle1(1)=0
+    angle1(2)=0  
+    angle1(3)=180
+    angle2(1)=0
+    angle2(2)=0  
+    angle2(3)=0               
+    occupations='smearing', smearing='MV', degauss=$degauss
+ /
+ &electrons
+    conv_thr = 1.0e-8
+    mixing_beta = 0.7   
+ /
+ATOMIC_SPECIES
+$name$one 55.847 $name.$pseudo.UPF
+$name$two 55.847 $name.$pseudo.UPF
+$name$three 55.847 $name.$pseudo.UPF
+ATOMIC_POSITIONS {alat}
+$name$one   0.0000000000000000  0.0000000000000000  0.0000000000000000
+$name$two   1.0000000000000000  0.0000000000000000  0.0000000000000000
+$name$three 0.5000000000000000  0.8660254037844386  0.0000000000000000
+CELL_PARAMETERS {alat}
+  3.0  0.0  0.0
+  0.0  3.0  0.0
+  0.0  0.0  3.0
+K_POINTS automatic
+$nK $nK $nK 0 0 0
+EOF
+$PW_ROOT/pw.x < $name.$struct.scf.in >> $name.$struct.scf.out
+
+
+

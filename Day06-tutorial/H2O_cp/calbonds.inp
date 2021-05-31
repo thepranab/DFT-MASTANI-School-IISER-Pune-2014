@@ -1,0 +1,9 @@
+"h2o.pos"
+2
+1 2
+1000 1 5.0
+
+READ(5,*) fname
+READ(5,*) ns
+READ(5,*) na(:)
+READ(5,*) nsteps, nstart, dt

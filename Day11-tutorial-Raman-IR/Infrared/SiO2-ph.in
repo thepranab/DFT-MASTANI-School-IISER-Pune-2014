@@ -1,0 +1,16 @@
+phonons of Chevron-like ribbon at Gamma
+&inputph
+    tr2_ph            = 1e-12
+    prefix            = 'SiO2-aQuartz'
+    amass(1)          =  28.086
+    amass(2)          =  15.9994
+    outdir            = './scratch/'
+    fildyn            = 'SiO2-aQuartz.dyn'
+    recover           = .false.
+    epsil             = .true.
+    lraman            = .false.
+    trans             = .true.
+    fildrho           = "SiO2-aQuartz.fildrho"
+    max_seconds       = 350000
+/
+0.0 0.0 0.0

@@ -1,0 +1,14 @@
+   Variable:       diago_thr_init
+
+   Type:           REAL
+   Description:    Convergence threshold for the first iterative diagonalization
+                   (the check is on eigenvalue convergence).
+                   For scf calculations, the default is 1.D-2 if starting from a
+                   superposition of atomic orbitals; 1.D-5 if starting from a
+                   charge density. During self consistency the threshold (ethr)
+                   is automatically reduced when approaching convergence.
+                   For non-scf calculations, this is the threshold used in the
+                   iterative diagonalization. The default is conv_thr / nelec.
+                   For 'phonon' calculations, diago_thr_init is ignored:
+                   the threshold is always set to  conv_thr / nelec .
+

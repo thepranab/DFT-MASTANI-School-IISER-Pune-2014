@@ -1,0 +1,13 @@
+ &input_mat 
+   ntyp = 2 
+   na(1) = 8 
+   na(2) = 8 
+   nalfa = 3 
+   magn = .true. 
+   filepos = 'pos_nio_r16' 
+   back = 'no' 
+   filednda = 'file.nio.r16' 
+   n1 = 5 
+   n2 = 5 
+   n3 = 5 
+ &end 

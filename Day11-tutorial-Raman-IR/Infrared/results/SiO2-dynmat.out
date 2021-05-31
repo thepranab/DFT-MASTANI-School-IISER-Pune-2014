@@ -1,0 +1,62 @@
+
+     Program DYNMAT v.5.1 starts on  8Jul2014 at 19: 2:23 
+
+     This program is part of the open-source Quantum ESPRESSO suite
+     for quantum simulation of materials; please cite
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 21 395502 (2009);
+          URL http://www.quantum-espresso.org", 
+     in publications or presentations arising from this work. More details at
+     http://www.quantum-espresso.org/quote
+
+     Parallel version (MPI), running on     1 processors
+
+     Reading Dynamical Matrix from file SiO2-aQuartz.dyn
+     ...Force constants read
+     ...epsilon and Z* read
+     A direction for q was not specified:TO-LO splitting will be absent
+
+     Polarizability (A^3 units)
+     multiply by 0.660110 for Clausius-Mossotti correction
+        13.251918   -0.000000    0.000000
+         0.000000   13.251918    0.000000
+         0.000000    0.000000   13.391399
+
+     IR activities are in (D/A)^2/amu units
+
+# mode   [cm-1]    [THz]      IR
+    1     20.52    0.6151    0.0003
+    2     57.17    1.7140    0.0019
+    3     57.17    1.7140    0.0019
+    4    151.38    4.5383    0.0002
+    5    151.38    4.5383    0.0002
+    6    244.50    7.3298    0.0000
+    7    286.46    8.5879    0.3650
+    8    286.46    8.5879    0.3650
+    9    344.44   10.3262    0.0000
+   10    345.79   10.3665    5.1701
+   11    384.99   11.5418    3.1800
+   12    384.99   11.5418    3.1800
+   13    448.26   13.4386    7.6258
+   14    448.26   13.4386    7.6258
+   15    481.79   14.4437    0.0000
+   16    502.78   15.0731    7.3352
+   17    693.59   20.7932    1.0807
+   18    693.59   20.7932    1.0807
+   19    763.21   22.8803    6.3063
+   20    796.48   23.8777    3.4935
+   21    796.48   23.8777    3.4935
+   22   1046.94   31.3866   38.6353
+   23   1046.94   31.3866   38.6353
+   24   1058.16   31.7229   39.8048
+   25   1067.13   31.9918    0.0000
+   26   1126.17   33.7619    1.0833
+   27   1126.17   33.7619    1.0833
+
+     DYNMAT       :     0.01s CPU         0.01s WALL
+
+
+   This run was terminated on:  19: 2:23   8Jul2014            
+
+=------------------------------------------------------------------------------=
+   JOB DONE.
+=------------------------------------------------------------------------------=

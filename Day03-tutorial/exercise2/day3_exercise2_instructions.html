@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1265.2">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Times}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Times; min-height: 18.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Times; color: #ff0000}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Times; color: #ff00ff}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Times; color: #0000ff}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Times; color: #008000}
+    p.p7 {margin: 0.0px 0.0px 0.0px 26.8px; font: 14.0px Times; min-height: 18.0px}
+    p.p8 {margin: 0.0px 0.0px 0.0px 47.2px; font: 14.0px Times}
+    p.p9 {margin: 0.0px 0.0px 0.0px 47.2px; font: 14.0px Times; color: #ff00ff}
+    p.p10 {margin: 0.0px 0.0px 0.0px 47.2px; font: 14.0px Times; min-height: 18.0px}
+    p.p11 {margin: 0.0px 0.0px 0.0px 76.0px; font: 14.0px Times; min-height: 18.0px}
+    p.p13 {margin: 0.0px 0.0px 0.0px 47.2px; font: 14.0px Times; color: #0000ff}
+    p.p15 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; min-height: 14.0px}
+    li.li3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Times; color: #ff0000}
+    li.li12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Times; color: #4c4c4c}
+    li.li14 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+    span.s1 {text-decoration: underline}
+    span.s2 {text-decoration: underline ; color: #ff00ff}
+    span.s3 {color: #000000}
+    span.s4 {color: #ff00ff}
+    ul.ul1 {list-style-type: disc}
+  </style>
+</head>
+<body>
+<p class="p1"><b>INSTRUCTIONS FOR DAY 3 (MASTANI, 2014), EXERCISE 2</b></p>
+<p class="p2"><br></p>
+<p class="p1">Note that the following color code has been used in this instruction sheet:</p>
+<p class="p3">Broad headings are in red.</p>
+<p class="p4">File names are in magenta.</p>
+<p class="p5">Phrases to be typed into the command line are in blue.</p>
+<p class="p6">Input parameters are in dark green.</p>
+<p class="p7"><br></p>
+<p class="p3">In this exercise, you will perform simple relax calculation for a surface.</p>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><span class="s1">STEP 1: Go to the directory </span><span class="s2">~/hands_on/week1/day5/exercise2</span><span class="s3"><span class="Apple-converted-space"> </span></span></li>
+</ul>
+<p class="p8">You will see the following files:</p>
+<p class="p9">day3_exercise2_instructions.html <span class="s3">this file!</span></p>
+<p class="p8"><span class="s4">al001.scf.in </span>this is a sample scf input file, for an Al(001) surface containing 5 layers.</p>
+<p class="p10"><br></p>
+<p class="p10"><br></p>
+<ul class="ul1">
+  <li class="li3"><span class="s1">STEP 2: Open and read the sample file </span><span class="s2">al001.scf.in</span></li>
+</ul>
+<p class="p11"><br></p>
+<ul class="ul1">
+  <li class="li12">We are considering the 001 surface of Al. We have taken a slab of Al which 5 atomic layer thick. The surface is periodically repeated in x and y direction. In the z direction the slab is separated from its periodic image by vacuum.<span class="Apple-converted-space"> </span></li>
+  <li class="li12">Open the structure in xcrysden.<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><span class="s1">STEP 3: Run an scf calculation:</span></li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li12">Run the scf calculation<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p2"><br></p>
+<p class="p13">/usr/local/apps/espresso-5.1/bin/pw.x &lt; al001.scf.in &gt; al001.scf.out</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><span class="s1">STEP 4: Read the output, and answer the following questions:</span></li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li14">Check the forces on each atom by xcrysden. What do you notice? Are the atomic forces pointing outward or inward?</li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li3"><span class="s1">STEP 5: Now optimize the structure of Al(001)</span></li>
+</ul>
+<p class="p2"><br></p>
+<ul class="ul1">
+  <li class="li14">Modify the input file for the structural optimization (Refer to the excercise1 for acetylene).</li>
+  <li class="li14">Run the relax calculation and compare the forces after relaxation.<span class="Apple-converted-space"> </span></li>
+  <li class="li14">Visualize the forces with xcrysden.<span class="Apple-converted-space"> </span></li>
+</ul>
+<p class="p15"><br></p>
+</body>
+</html>

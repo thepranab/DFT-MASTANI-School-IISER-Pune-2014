@@ -1,0 +1,59 @@
+#!/bin/sh
+####################################################################
+# set the needed environment variables
+. ../environment_variables
+
+####################################################################
+# define some QE variables (do not change)
+#pseudo=pbe-nd-rrkjus
+pseudo=pbe-rrkjus
+up=1
+dn=2
+name=Cr
+struct=bcc.AF
+lattice_const=2.88
+
+####################################################################
+# define some QE variables to play with
+nK=10
+degauss=0.005
+
+
+mkdir results.test
+
+cd results.test
+
+\rm -f $name.$struct.scf.out
+
+# scf calculation
+cat >  $name.$struct.scf.in << EOF
+ &control
+    pseudo_dir = '$PSEUDO_DIR/',
+    outdir='$TMP_DIR/'
+    prefix='$name.$struct'
+ /
+ &system
+    ibrav = 1, a =$lattice_const, nat= 2, ntyp= 2,
+    nspin = 2,   
+    ecutwfc = 35, ecutrho = 350.0,
+    starting_magnetization(1)=0.3,
+    starting_magnetization(2)=-0.1,   
+    occupations='smearing', smearing='MV', degauss=$degauss
+ /
+ &electrons
+    conv_thr = 1.0e-8
+    mixing_beta = 0.7   
+ /
+ATOMIC_SPECIES
+$name$up 55.847 $name.$pseudo.UPF
+$name$dn 55.847 $name.$pseudo.UPF
+ATOMIC_POSITIONS {alat}
+$name$up 0.0 0.0 0.0
+$name$dn 0.5 0.5 0.5
+K_POINTS automatic
+ $nK $nK $nK 0 0 0
+EOF
+$PW_ROOT/pw.x < $name.$struct.scf.in >> $name.$struct.scf.out
+
+
+

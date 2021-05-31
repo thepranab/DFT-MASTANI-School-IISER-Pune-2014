@@ -1,0 +1,138 @@
+#!/bin/sh
+####################################################################
+#
+# output in results_NO_U/
+#
+temp=./temp
+temp1=./temp1
+pseudo=../pseudo
+
+if [ ! -d results_Fe_sc8_ucalc_pbe ]; then
+   mkdir  results_Fe_sc8_ucalc_pbe
+fi
+if [ ! -d $temp ]; then
+   mkdir  $temp
+fi
+if [ ! -d $temp1 ]; then
+   mkdir  $temp1
+fi
+
+rm -rf $temp/* $temp1/*
+
+# unperturbed self-consistent calculation
+rm -f fe.scf.in
+cat > fe.scf.in << EOF
+ &control
+    pseudo_dir = '$pseudo',
+    outdir='$temp'
+    restart_mode='from_scratch'
+    verbosity = 'high',
+    prefix='fe',
+ /
+ &system
+    ibrav=  1, celldm(1)=10.84, nat=  16, ntyp= 2,
+    ecutwfc = 30.0, ecutrho = 360.0,
+    occupations='smearing', smearing='mp', degauss=0.01,
+    nbnd = 100,
+    nspin=2, 
+    starting_magnetization(1)= 0.6
+    starting_magnetization(2)= 0.6
+    lda_plus_u = .true.
+    Hubbard_U(1)= 1.d-20
+    Hubbard_U(2)= 1.d-20
+ /
+ &electrons
+    mixing_beta = 0.3 
+    conv_thr =  5.0d-8,
+ /
+ATOMIC_SPECIES
+ Fe1 1.  Fe.pbe-nd-rrkjus.UPF
+ Fe  1.  Fe.pbe-nd-rrkjus.UPF
+ATOMIC_POSITIONS crystal
+Fe1  0.00000   0.00000   0.00000
+Fe   0.50000   0.00000   0.00000
+Fe   0.00000   0.50000   0.00000
+Fe   0.00000   0.00000   0.50000
+Fe   0.00000   0.50000   0.50000
+Fe   0.50000   0.50000   0.00000
+Fe   0.50000   0.00000   0.50000
+Fe   0.50000   0.50000   0.50000
+Fe   0.25000   0.25000   0.25000
+Fe   0.75000   0.25000   0.25000
+Fe   0.25000   0.75000   0.25000
+Fe   0.25000   0.25000   0.75000
+Fe   0.25000   0.75000   0.75000
+Fe   0.75000   0.75000   0.25000
+Fe   0.75000   0.25000   0.75000
+Fe   0.75000   0.75000   0.75000
+K_POINTS automatic
+4 4 4 0 0 0
+EOF
+mpirun -np 8 /usr/local/apps/espresso-5.1/bin/pw.x < fe.scf.in  > results_Fe_sc8_ucalc_pbe/fe.scf.out
+ethr=`grep ethr results_Fe_sc8_ucalc_pbe/fe.scf.out |tail -1 |awk '{print $3}'`
+
+rm -rf $temp1/*
+cp -r $temp/* $temp1/
+
+for a in 0.0 -0.05 0.05 -0.1 0.1 
+do
+
+rm -rf $temp/*
+cp -r $temp1/* $temp/
+
+# perturbed calculations (finite alpha)
+rm -f fe.scf.in
+cat > fe.scf.in << EOF
+ &control
+    pseudo_dir = '$pseudo',
+    outdir='$temp'
+    restart_mode='from_scratch'
+    verbosity = 'high',
+    prefix='fe',
+ /
+ &system
+    ibrav=  1, celldm(1)=10.84, nat=  16, ntyp= 2,
+    ecutwfc = 30.0, ecutrho = 360.0,
+    occupations='smearing', smearing='mp', degauss=0.01,
+    nbnd = 100,
+    nspin=2, 
+    starting_magnetization(1)= 0.6
+    starting_magnetization(2)= 0.6
+    lda_plus_u = .true.
+    Hubbard_U(1)= 1.d-20
+    Hubbard_U(2)= 1.d-20
+    Hubbard_alpha(1)= $a
+ /
+ &electrons
+    startingpot = 'file'
+    startingwfc = 'file'
+    diago_thr_init = $ethr
+    mixing_beta = 0.15 
+    conv_thr =  5.0d-8,
+ /
+ATOMIC_SPECIES
+ Fe1 1.  Fe.pbe-nd-rrkjus.UPF
+ Fe  1.  Fe.pbe-nd-rrkjus.UPF
+ATOMIC_POSITIONS crystal
+Fe1  0.00000   0.00000   0.00000
+Fe   0.50000   0.00000   0.00000
+Fe   0.00000   0.50000   0.00000
+Fe   0.00000   0.00000   0.50000
+Fe   0.00000   0.50000   0.50000
+Fe   0.50000   0.50000   0.00000
+Fe   0.50000   0.00000   0.50000
+Fe   0.50000   0.50000   0.50000
+Fe   0.25000   0.25000   0.25000
+Fe   0.75000   0.25000   0.25000
+Fe   0.25000   0.75000   0.25000
+Fe   0.25000   0.25000   0.75000
+Fe   0.25000   0.75000   0.75000
+Fe   0.75000   0.75000   0.25000
+Fe   0.75000   0.25000   0.75000
+Fe   0.75000   0.75000   0.75000
+K_POINTS automatic
+4 4 4 0 0 0
+EOF
+mpirun -np 8 /usr/local/apps/espresso-5.1/bin/pw.x < fe.scf.in  > results_Fe_sc8_ucalc_pbe/fe.pert_$a.out
+
+done

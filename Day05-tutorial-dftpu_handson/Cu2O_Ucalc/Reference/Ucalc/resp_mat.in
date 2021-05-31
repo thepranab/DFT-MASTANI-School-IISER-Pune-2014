@@ -1,0 +1,13 @@
+ &input_mat 
+   ntyp = 2 
+   na(1) = 16
+   na(2) = 8 
+   nalfa = 3 
+   magn = .false. 
+   filepos = 'pos_cu2o' 
+   back = 'no' 
+   filednda = 'file.cu2o.24' 
+   n1 = 4 
+   n2 = 4 
+   n3 = 4 
+ &end 

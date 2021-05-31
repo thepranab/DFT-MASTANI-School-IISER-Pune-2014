@@ -1,0 +1,40 @@
+ &control
+     calculation = 'scf'
+     restart_mode='from_scratch',
+     prefix='si',
+     tstress = .true.
+     tprnfor = .true.
+     pseudo_dir = '../../../../pseudo',
+     outdir='tmp'
+     verbosity='high'
+  /
+  &system
+     ibrav=  2,  nat=  2, ntyp= 1,celldm(1)=10.3463,
+     ecutwfc =20.0, ecutrho=80.0,nbnd=8
+     occupations='fixed',
+  /
+  &electrons
+     mixing_mode = 'plain'
+     mixing_beta = 0.5
+     conv_thr =  1.0d-10
+  /
+  &ions
+  /
+  &cell
+  /
+ 
+ ATOMIC_SPECIES
+ Si     28.086  Si.pbe-rrkj.UPF
+ 
+ ATOMIC_POSITIONS {crystal}
+ Si 0.00000 0.00000 0.00000
+ Si 0.25000 0.25000 0.25000
+ 
+ 
+ K_POINTS {crystal}
+ 5
+  0.0000000000     0.0000000000     0.0000000000 1
+  0.5000000000     0.5000000000     0.0000000000 1
+  0.2500000000     0.5000000000    -0.2500000000 1
+  0.0000000000     0.5000000000     0.0000000000 1
+  0.0000000000     0.0000000000     0.0000000000 1

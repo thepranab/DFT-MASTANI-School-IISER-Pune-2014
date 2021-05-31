@@ -1,0 +1,40 @@
+
+
+--------
+pw.dos.job  : compute the spin-polarized density of states for the a 5 layers slab of Febcc(001)(pw.x + projwfc.x)
+
+
+As in the example of Fe_bulk the DOS is performed in three steps (scf pw.x, nscf pw.x and projwfc.x)
+
+First of all check the atomic structure of the system with xcrysden.
+What is the distance between two slabs?
+
+Note that K-point sampling is only in the kx,ky plane:
+K_POINTS automatic
+ $nK $nK 1 0 0 0
+
+Why is it so?
+
+Note also that the scf calculation has been performed with an nbnd=35 which is larger than the default value (ndnd=24) since otherwise you will face convergence problems...This is due to the fact that the default value of nbnd is too small for up bands.
+Do you understand why?
+
+From the general output of projwfc.x (Fe.bcc.surf001.FM.projwfc.out) extract the magnetization for the 5 atomics layers of the slab.
+Plot the magnetization with respect to the atomic site.
+
+How many projected DOS files do you have? Explain why.
+
+Plot the projected DOS for d orbitals on the surface and central atom.
+What do you notice?
+
+--------
+pw.charge-density.job  : compute the charge density (for up and dn spins) of a 5 layer slab of Febcc(001)(pw.x + pp.x)
+
+After running a scf cycle we use post-processing.
+The post-processing programm pp.x allows to analyze and plot a great variety of quantities.
+In this example we use an option that allows to calculate the charge density along a given line.
+We have defined a line perpendicular to the surface and passing through a surface atom.
+
+You will obtain two files bcc.surf001.FM.charge-density.plot.up and bcc.surf001.FM.charge-density.plot.dn
+Plot the charge density of up and down spins. What do you notice?
+
+

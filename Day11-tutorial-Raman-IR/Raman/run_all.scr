@@ -1,0 +1,21 @@
+#!/bin/bash
+
+export LANG=C
+
+RUNCMD='mpirun -np 4 /usr/local/apps/espresso-5.1/bin/pw.x -npools 2'
+
+${RUNCMD} -in gar-w_03-1H-pw.in > gar-w_03-1H-pw.out
+${RUNCMD} -in gar-w_03-2H-pw.in > gar-w_03-2H-pw.out
+${RUNCMD} -in gar-w_05-1H-pw.in > gar-w_05-1H-pw.out
+
+RUNCMD='mpirun -np 4 /usr/local/apps/espresso-5.1/bin/ph.x -npools 2'
+
+${RUNCMD} -in gar-w_03-1H-ph.in > gar-w_03-1H-ph.out
+${RUNCMD} -in gar-w_03-2H-ph.in > gar-w_03-2H-ph.out
+${RUNCMD} -in gar-w_05-1H-ph.in > gar-w_05-1H-ph.out
+
+RUNCMD='/usr/local/apps/espresso-5.1/bin/dynmat.x'
+
+${RUNCMD} -in gar-w_03-1H-dynmat.in > gar-w_03-1H-dynmat.out
+${RUNCMD} -in gar-w_03-2H-dynmat.in > gar-w_03-2H-dynmat.out
+${RUNCMD} -in gar-w_05-1H-dynmat.in > gar-w_05-1H-dynmat.out

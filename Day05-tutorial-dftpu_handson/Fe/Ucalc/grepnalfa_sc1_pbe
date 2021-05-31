@@ -1,0 +1,26 @@
+# le righe (e le colonne pari) descrivono gli stati s
+
+rm -f dn*_*da*
+rm -f file_sc1
+
+cp ../results_Fe_sc1_ucalc_pbe/fe.pert*out ./
+
+for con in -0.1 -0.05 0.0 0.05 0.1 
+do
+
+sum1=`grep 'Tr' fe.pert_$con.out |tail -2 | awk '{if(NR==1) print $10}'`
+echo ' ' $con ' ' $sum1 >> dn_1_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |tail -2 | awk '{if(NR==2) print $10}'`
+echo ' ' $con ' ' $sum1 >> dn_2_da_1.dat
+
+sum1=`grep 'Tr' fe.pert_$con.out |head -4 |tail -2 | awk '{if(NR==1) print $10}'`
+echo ' ' $con ' ' $sum1 >> dn0_1_da_1.dat
+sum1=`grep 'Tr' fe.pert_$con.out |head -4 |tail -2 | awk '{if(NR==2) print $10}'`
+echo ' ' $con ' ' $sum1 >> dn0_2_da_1.dat
+
+done
+
+echo ' dn_1_da_1.dat  dn0_1_da_1.dat' >> file_sc1
+echo ' dn_2_da_1.dat  dn0_2_da_1.dat' >> file_sc1
+
+rm fe.pert*out 

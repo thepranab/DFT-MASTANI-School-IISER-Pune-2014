@@ -1,0 +1,30 @@
+#!/bin/bash
+
+export LANG=C
+
+for i in $* ; do
+
+  OUTPREFIX="`dirname $i`"/"`basename $i | sed 's/\.out//'`"
+
+awk '
+
+BEGIN {
+  outprefix = "'${OUTPREFIX}'"
+  outfile_IR = sprintf ( "%s-IR.dat", outprefix )
+  outfile_Raman = sprintf ( "%s-Raman.dat", outprefix )
+  printf "" > outfile_IR
+  printf "" > outfile_Raman
+} # BEGIN
+
+/depol.fact/, /^$/ {
+  if ( NF != 6 ) { next }
+  print $2, $4 >> outfile_IR
+  print $2, $5 >> outfile_Raman
+}
+
+' $i
+
+./broaden.x -width 10 -Xmin 0 -Xmax 4000 -f ${OUTPREFIX}-IR.dat -o ${OUTPREFIX}-IR-br.dat
+./broaden.x -width 10 -Xmin 0 -Xmax 4000 -f ${OUTPREFIX}-Raman.dat -o ${OUTPREFIX}-Raman-br.dat
+
+done

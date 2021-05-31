@@ -1,0 +1,6 @@
+&input
+    fildyn            = 'SiO2-aQuartz.dyn'
+    filxsf            = 'SiO2-aQuartz-dynmat.axsf'
+    filmol            = 'SiO2-aQuartz-dynmat.mold'
+    filout            = 'SiO2-aQuartz-dynmat.dat'
+/

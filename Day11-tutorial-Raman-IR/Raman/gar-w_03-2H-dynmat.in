@@ -1,0 +1,6 @@
+&input
+  fildyn = 'gar-w_03-2H-ph.dyn'
+  filxsf = 'gar-w_03-2H-dynmat.axsf'
+  filmol = 'gar-w_03-2H-dynmat.mold'
+  filout = 'gar-w_03-2H-dynmat.dat'
+/

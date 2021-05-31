@@ -1,0 +1,68 @@
+#!/bin/sh
+####################################################################
+# set the needed environment variables
+. ../environment_variables
+
+####################################################################
+# define some QE variables (do not change)
+#pseudo=pbe-nd-rrkjus
+pseudo=pbe-rrkjus
+up=1
+dn=2
+name=Cr
+struct=bcc.AF
+lattice_const=2.88
+
+####################################################################
+# define some QE variables to play with
+nK=7
+degauss=0.005
+
+
+mkdir results.cons
+
+cd results.cons
+
+\rm -f $name.$struct.scf.out
+
+for M in -1.4 -1.3 -1.2 -1.1 -1.0 -0.9 -0.8 -0.7 -0.6 -0.5 -0.4 -0.3 -0.2 -0.1 0.0  ;do
+# scf calculation
+cat >  $name.$struct.scf.in << EOF
+ &control
+    pseudo_dir = '$PSEUDO_DIR/',
+    outdir='$TMP_DIR/'
+    prefix='$name.$struct'
+ /
+ &system
+    ibrav = 1, a =$lattice_const, nat= 2, ntyp= 2,
+    nspin = 2,   
+    ecutwfc = 35, ecutrho = 350.0,
+    constrained_magnetization= 'atomic'
+    lambda= 5.0
+    starting_magnetization(1)=1.1,
+    starting_magnetization(2)=$M,   
+    occupations='smearing', smearing='MV', degauss=$degauss
+ /
+ &electrons
+    conv_thr = 1.0e-8
+    mixing_beta = 0.7   
+ /
+ATOMIC_SPECIES
+$name$up 55.847 $name.$pseudo.UPF
+$name$dn 55.847 $name.$pseudo.UPF
+ATOMIC_POSITIONS {alat}
+$name$up 0.0 0.0 0.0
+$name$dn 0.5 0.5 0.5
+K_POINTS automatic
+ $nK $nK $nK 0 0 0
+EOF
+$PW_ROOT/pw.x < $name.$struct.scf.in >> $name.$struct.scf.out
+
+done
+
+cat>$name.$struct.etot_vs_mag <<EOF1
+@#  M  Etot  
+EOF1
+
+grep  -e 'atom:    2' -e '!' $name.$struct.scf.out | awk '{if($1=="!"){i=i+1;energy[i]=$(NF-1)} else {mag[i+1]=$(NF-2)} } END{for (j=1;j<=i;j++) {printf  "\t" mag[j] "\t" energy[j] "\n" }}'>> $name.$struct.etot_vs_mag
+

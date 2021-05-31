@@ -1,0 +1,35 @@
+ &control
+    pseudo_dir = '../pseudo',
+    outdir='./temp'
+    restart_mode='from_scratch'
+    verbosity = 'high',
+    prefix='fe',
+ /
+ &system
+    ibrav=  1, celldm(1)=5.42, nat=  2, ntyp= 2,
+    ecutwfc = 30.0, ecutrho = 360.0,
+    occupations='smearing', smearing='mp', degauss=0.01,
+    nbnd = 14,
+    nspin=2, 
+    starting_magnetization(1)= 0.6
+    starting_magnetization(2)= 0.6
+    lda_plus_u = .true.
+    Hubbard_U(1)= 1.d-20
+    Hubbard_U(2)= 1.d-20
+    Hubbard_alpha(1)= 0.1
+ /
+ &electrons
+    startingpot = 'file'
+    startingwfc = 'file'
+    diago_thr_init = 1.49E-10,
+    mixing_beta = 0.7 
+    conv_thr =  1.0d-9,
+ /
+ATOMIC_SPECIES
+ Fe1 1.  Fe.pbe-nd-rrkjus.UPF
+ Fe  1.  Fe.pbe-nd-rrkjus.UPF
+ATOMIC_POSITIONS crystal
+ Fe1 0.0  0.0  0.0 
+ Fe  0.5  0.5  0.5 
+K_POINTS automatic
+8 8 8 0 0 0

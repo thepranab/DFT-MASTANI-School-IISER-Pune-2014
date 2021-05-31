@@ -1,0 +1,118 @@
+#!/bin/bash
+#PBS -q lionxi-seminar
+#PBS -l nodes=1:ppn=4
+#PBS -l walltime=1:00:00
+#PBS -j oe
+####################################################################
+#
+
+export PW_COMMAND=/usr/local/apps/espresso-5.1/bin/pw.x
+export PP_COMMAND=/usr/local/apps/espresso-5.1/bin/projwfc.x
+export PSEUDO_DIR=../pseudo
+
+export results=./results_Cu2O_GGA
+
+
+if [ ! -d $results ]; then
+   mkdir  $results
+fi
+
+if [ ! -d temp ]; then
+   mkdir  temp
+fi
+
+rm cu2o.scf.in
+cat > cu2o.scf.in << EOF
+&control
+   calculation='scf',
+   restart_mode='from_scratch',
+   prefix='cu2o',
+   pseudo_dir='$PSEUDO_DIR',
+   outdir='temp',
+ /
+ &system
+    ibrav=1, 
+    celldm(1)=8.21
+    nat=6, 
+    ntyp=2,
+    nspin = 1,
+    ecutwfc=30,
+    ecutrho=300,
+    lda_plus_u=.true.,
+    Hubbard_U(1) = 1.d-10
+    Hubbard_U(2) = 1.d-10
+/
+ &electrons
+    mixing_beta=0.3,
+    startingwfc='atomic+random',
+ /
+ATOMIC_SPECIES
+  Cu 1.0 Cu.pbe-d-rrkjus.UPF
+  O  1.0 O.pbe-rrkjus.UPF
+ATOMIC_POSITIONS {crystal}
+  Cu    0.25 0.25 0.25
+  Cu    0.75 0.25 0.75
+  Cu    0.75 0.75 0.25
+  Cu    0.25 0.75 0.75
+  O     0.00 0.00 0.00
+  O     0.50 0.50 0.50
+K_POINTS {automatic}
+ 4 4 4 0 0 0
+EOF
+
+mpirun -np 4 $PW_COMMAND < cu2o.scf.in > $results/cu2o.scf.out
+
+rm cu2o.nscf.in
+cat > cu2o.nscf.in << EOF
+&control
+   calculation='nscf',
+   restart_mode='from_scratch',
+   prefix='cu2o',
+   pseudo_dir='$PSEUDO_DIR',
+   outdir='temp',
+ /
+ &system
+    ibrav=1, 
+    celldm(1)=8.21
+    nat=6, 
+    ntyp=2,
+    nspin = 1,
+    ecutwfc=30,
+    ecutrho=300,
+    lda_plus_u=.true.,
+    nbnd=32,
+    Hubbard_U(1) = 1.d-10
+    Hubbard_U(2) = 1.d-10
+/
+ &electrons
+    mixing_beta=0.3,
+    startingwfc='atomic+random',
+ /
+ATOMIC_SPECIES
+  Cu 1.0 Cu.pbe-d-rrkjus.UPF
+  O  1.0 O.pbe-rrkjus.UPF
+ATOMIC_POSITIONS {crystal}
+  Cu    0.25 0.25 0.25
+  Cu    0.75 0.25 0.75
+  Cu    0.75 0.75 0.25
+  Cu    0.25 0.75 0.75
+  O     0.00 0.00 0.00
+  O     0.50 0.50 0.50
+K_POINTS {automatic}
+ 4 4 4 0 0 0
+EOF
+
+mpirun -np 4 $PW_COMMAND < cu2o.nscf.in > $results/cu2o.nscf.out
+
+cat > cu2o.pdos.in << EOF
+ &projwfc
+    outdir='temp'
+    prefix='cu2o'
+    DeltaE=0.1
+ /
+EOF
+
+mpirun -np 4 $PP_COMMAND < cu2o.pdos.in  > $results/cu2o.pdos.out
+
+mv cu2o.* $results/
+

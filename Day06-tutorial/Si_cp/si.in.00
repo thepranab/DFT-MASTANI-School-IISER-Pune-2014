@@ -1,0 +1,53 @@
+ &control
+    title = 'Silicon 8 atoms',
+    calculation = 'cp',
+    restart_mode = 'from_scratch',
+    ndr = 50,
+    ndw = 50,
+    dt    = 6.0d0,
+    nstep  = 400,
+    iprint = 10,
+    isave  = 100,
+    tstress = .true.,
+    tprnfor = .true.,
+    prefix = 'si'
+    pseudo_dir='./',
+    outdir='./tmp/',
+ /
+ &system
+    ibrav = 14,
+    celldm(1) = 10.20,
+    celldm(2) = 1.0,
+    celldm(3) = 1.0,
+    celldm(4) = 0.0,
+    celldm(5) = 0.0,
+    celldm(6) = 0.0,
+    nat  = 8,
+    ntyp = 1,
+    nbnd = 16,
+ !   nelec = 32,
+    ecutwfc = 12.0,
+ /
+ &electrons
+    electron_dynamics = 'sd',
+    emass = 400.d0,
+    emass_cutoff = 1.d0,
+ /
+ &ions
+    ion_dynamics = 'none',
+ /
+ &cell
+    cell_dynamics = 'none',
+    press = 0.0d0,
+ /
+ATOMIC_SPECIES
+ Si 28.086d0 Si.pz-vbc.UPF 1
+ATOMIC_POSITIONS (crystal)
+  Si     0.0000    0.0000    0.0000  1 1 1 
+  Si     0.0000    0.5000    0.5000  1 1 1 
+  Si     0.5000    0.5000    0.0000  1 1 1 
+  Si     0.5000    0.0000    0.5000  1 1 1 
+  Si     0.2500    0.2500    0.2500  1 1 1 
+  Si     0.2500    0.7500    0.7500  1 1 1 
+  Si     0.7500    0.7500    0.2500  1 1 1 
+  Si     0.7500    0.2500    0.7500  1 1 1 

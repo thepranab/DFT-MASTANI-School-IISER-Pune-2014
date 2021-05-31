@@ -1,0 +1,5 @@
+si.pos si.cel
+1 1 ! no. spec. ! no. of grs  
+8 ! no. of atoms for each spec.
+1 1 ! gr between spec-spec 
+100 1 1 1 ! no. of cnfs ! starting cnf ! ave every n 

@@ -1,0 +1,41 @@
+ &control
+    calculation = 'vc-relax',
+    verbosity = 'high'
+    prefix = 'Al_vc-relax'
+    outdir = './tmp/'
+    pseudo_dir = '../pseudo/'
+    tprnfor = .true.
+    tstress = .true.
+ /
+ &system
+    ibrav =  0, 
+    celldm(1) = 7.65, 
+    nat =  4, 
+    ntyp = 1,
+    ecutwfc = 30.0,
+    occupations = 'smearing',
+    smearing = 'marzari-vanderbilt',
+    degauss = 0.02
+ /
+ &electrons
+    mixing_beta = 0.7
+ /
+ &ions
+ /
+ &cell
+ /
+ATOMIC_SPECIES
+ Al 26.98  Al.pz-vbc.UPF
+
+ATOMIC_POSITIONS (alat)
+ Al 0.0 0.0 0.0
+ Al 0.5 0.5 0.0
+ Al 0.5 0.0 0.5
+ Al 0.0 0.5 0.5
+
+K_POINTS (automatic)
+  6 6 6 0 0 0
+CELL_PARAMETERS
+ 1.0 0.0 0.0
+ 0.0 1.0 0.0
+ 0.0 0.0 1.0

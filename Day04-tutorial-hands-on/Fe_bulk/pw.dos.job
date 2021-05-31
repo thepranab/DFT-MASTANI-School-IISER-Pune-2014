@@ -1,0 +1,94 @@
+#!/bin/sh
+####################################################################
+# set the needed environment variables
+. ../environment_variables
+
+####################################################################
+# define some QE variables (do not change)
+pseudo=gpbe-n-campos.uspp
+name=Fe
+struct=bcc.FM
+lattice_const=2.85
+nK=15
+nKdos=20
+degauss=0.005
+
+mkdir results.dos
+
+
+cd results.dos
+
+
+\rm -f $name.$struct.scf.out
+
+# scf calculation
+cat >  $name.$struct.scf.in << EOF
+ &control
+    pseudo_dir = '$PSEUDO_DIR/',
+    outdir='$TMP_DIR/'
+    prefix='$name.$struct'
+ /
+ &system
+    ibrav = 3, a =$lattice_const, nat= 1, ntyp= 1,
+    nspin = 2,   
+    ecutwfc = 35, ecutrho = 350.0,
+    starting_magnetization(1)=0.3,
+    occupations='smearing', smearing='MV', degauss=$degauss
+ /
+ &electrons
+    conv_thr = 1.0e-8
+    mixing_beta = 0.7   
+ /
+ATOMIC_SPECIES
+$name 55.847 $name.$pseudo.UPF
+ATOMIC_POSITIONS {alat}
+ $name 0.0 0.0 0.0
+K_POINTS automatic
+ $nK $nK $nK 0 0 0
+EOF
+$PW_ROOT/pw.x < $name.$struct.scf.in > $name.$struct.scf.out
+
+# nscf calculation
+cat >  $name.$struct.nscf.in << EOF
+ &control
+    calculation='nscf'  
+    pseudo_dir = '$PSEUDO_DIR/',
+    outdir='$TMP_DIR/'
+    prefix='$name.$struct'
+ /
+ &system
+    ibrav = 3, a =$lattice_const, nat= 1, ntyp= 1,
+    nspin = 2,   
+    ecutwfc = 35, ecutrho = 350.0,
+    starting_magnetization(1)=0.3,
+    occupations='smearing', smearing='MV', degauss=$degauss
+ /
+ &electrons
+    conv_thr = 1.0e-8
+    mixing_beta = 0.7   
+ /
+ATOMIC_SPECIES
+$name 55.847 $name.$pseudo.UPF
+ATOMIC_POSITIONS {alat}
+ $name 0.0 0.0 0.0
+K_POINTS automatic
+ $nKdos $nKdos $nKdos 0 0 0
+EOF
+$PW_ROOT/pw.x < $name.$struct.nscf.in > $name.$struct.nscf.out
+
+      
+# nscf calculation
+cat >  $name.$struct.projwfc.in << EOF
+ &projwfc
+    outdir='$TMP_DIR/'
+    prefix='$name.$struct'
+    ngauss=0
+    degauss=0.005
+    Emin=6
+    Emax=20
+    DeltaE=0.1
+    filpdos='$name.$struct.pdos'
+ /
+EOF
+
+$PW_ROOT/projwfc.x < $name.$struct.projwfc.in > $name.$struct.projwfc.out

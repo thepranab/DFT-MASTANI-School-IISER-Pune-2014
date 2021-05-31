@@ -1,0 +1,34 @@
+ &CONTROL
+   calculation = 'scf' ,
+   prefix = 'al001-na5'
+   restart_mode = 'from_scratch' ,
+   tprnfor = .true. ,
+   pseudo_dir = '../pseudo/'
+   outdir = './tmp/'
+   forc_conv_thr = 1.0D-3 
+ /
+ &SYSTEM
+   ibrav = 6,
+   celldm(1) = 5.3033, celldm(3) = 7,
+   nat = 5, ntyp = 1,
+   ecutwfc = 20,
+   nosym = .true. ,
+   occupations = 'smearing' ,
+   degauss = 0.05 ,
+   smearing = 'methfessel-paxton' ,
+ /
+ &ELECTRONS
+   conv_thr = 1.D-8 ,
+   mixing_mode = 'local-TF' ,
+   mixing_beta = 0.5,
+ /
+ATOMIC_SPECIES
+   Al    1.00000  Al.pz-vbc.UPF 
+ATOMIC_POSITIONS 
+   Al      0.000000000    0.000000000    2.828426000    1  1  1 
+   Al      0.500000000    0.500000000    2.121320000    1  1  1 
+   Al      0.000000000    0.000000000    1.414213000    1  1  1 
+   Al      0.500000000    0.500000000    0.707107000    0  0  0 
+   Al      0.000000000    0.000000000    0.000000000    0  0  0 
+K_POINTS automatic
+ 2 2 1 0 0 0

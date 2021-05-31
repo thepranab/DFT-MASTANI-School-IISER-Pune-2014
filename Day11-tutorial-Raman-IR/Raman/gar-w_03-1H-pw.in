@@ -1,0 +1,62 @@
+ &control
+    calculation       = 'scf'
+    restart_mode      = 'from_scratch'
+    prefix            = 'gar-w_03-1H'
+    tstress           = .false.
+    tprnfor           = .true.
+    wf_collect        = .true.
+    verbosity         = 'medium'
+    pseudo_dir        = '../PP_LIBRARY/'
+    outdir            = './scratch/'
+
+    etot_conv_thr     = 1e-6
+    forc_conv_thr     = 1e-5
+ /
+ &system
+    ibrav             = 8
+    a                 =  4.26084498661943814205
+    b                 = 12
+    c                 =  8
+
+    nat               = 14
+    ntyp              = 2
+
+    ecutwfc           = 35
+ /
+    occupations       = 'smearing'
+    smearing          = 'fermi-dirac'
+    degauss           = 0.004
+
+ &electrons
+    conv_thr          = 1e-9
+    mixing_beta       = 0.5
+ /
+&IONS
+    trust_radius_ini  = 0.01
+    bfgs_ndim         = 3
+    pot_extrapolation = 'second_order'
+    wfc_extrapolation = 'second_order'
+/
+
+ATOMIC_SPECIES
+C 12.0107  C.pbe-mt_gipaw.UPF
+H  1.0079  H.pbe-vbc.UPF
+
+ATOMIC_POSITIONS alat
+H        0.282108792  -0.805708049   0.000000000
+H        0.717891208  -0.805708049   0.000000000
+C        0.158456067  -0.581642642   0.000000000
+C        0.841543933  -0.581642642   0.000000000
+C        0.333541173  -0.290152775   0.000000000
+C        0.666458827  -0.290152775   0.000000000
+C        0.170200813  -0.000000000  -0.000000000
+C        0.829799187   0.000000000  -0.000000000
+C        0.333541173   0.290152775  -0.000000000
+C        0.666458827   0.290152775  -0.000000000
+C        0.158456067   0.581642642   0.000000000
+C        0.841543933   0.581642642   0.000000000
+H        0.282108792   0.805708049  -0.000000000
+H        0.717891208   0.805708049   0.000000000
+
+K_POINTS AUTOMATIC
+  02 1 1 0 0 0

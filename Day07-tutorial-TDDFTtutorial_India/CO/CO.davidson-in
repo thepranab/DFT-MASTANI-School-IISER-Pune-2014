@@ -1,0 +1,16 @@
+&lr_input 
+prefix="CO",
+outdir='./out',
+/
+&lr_dav 
+num_eign=2,
+num_init=4,
+num_basis_max=200,
+reference=0.d0,
+residue_conv_thr=1.d-4,
+start=0.d0,
+finish=3.5d0,
+step=0.001d0,
+broadening=0.015d0,
+/ 
+

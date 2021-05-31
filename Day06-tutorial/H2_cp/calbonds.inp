@@ -1,0 +1,9 @@
+"h2.pos"
+1
+2
+500 1 5.0
+
+READ(5,*) fname
+READ(5,*) ns
+READ(5,*) na(:)
+READ(5,*) nsteps, nstart, dt
